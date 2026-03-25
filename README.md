@@ -29,6 +29,11 @@ Dokumentasi ini disusun untuk tim internal agar implementasi, penggunaan, dan op
 - kasir
 - gudang
 
+## Pricing
+- Harga dasar: Rp 3.000.000 (satu kali bayar)
+- Biaya tambahan untuk setup : Rp 500.000 
+- Biaya tambahan untuk kustomisasi: Rp 200.000 per fitur tambahan
+
 ## Catatan
 
 Repositori ini adalah gambaran lengkap sistem yang ada, dan bukan berisi source code aplikasi. Dokumentasi ini bertujuan untuk memberikan panduan penggunaan dan operasional bagi pengguna yang telah membeli sistem.
