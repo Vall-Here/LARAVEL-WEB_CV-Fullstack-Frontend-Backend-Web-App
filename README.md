@@ -2,7 +2,7 @@
 
 Dokumentasi ini disusun untuk tim internal agar implementasi, penggunaan, dan operasional sistem berjalan konsisten.
 
-## Versi HTML (GitHub Pages)
+## Versi Pages
 
 - [Halaman Utama HTML](index.html)
 
@@ -31,4 +31,4 @@ Dokumentasi ini disusun untuk tim internal agar implementasi, penggunaan, dan op
 
 ## Catatan
 
-Dokumentasi ini mengikuti implementasi saat ini di aplikasi Laravel + Filament. Jika ada perubahan flow bisnis, harap perbarui dokumen terkait agar tetap sinkron dengan sistem.
+Repositori ini adalah gambaran lengkap sistem yang ada, dan bukan berisi source code aplikasi. Dokumentasi ini bertujuan untuk memberikan panduan penggunaan dan operasional bagi pengguna yang telah membeli sistem.
