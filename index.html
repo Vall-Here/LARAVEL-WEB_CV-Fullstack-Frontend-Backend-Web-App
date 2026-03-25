@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dokumentasi CV Web App</title>
+  <meta name="description" content="Dokumentasi lengkap CV Web App untuk penggunaan, fitur, alur kerja, alur user, tugas user, dan screenshot.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <p class="eyebrow">GitHub Pages Ready</p>
+      <h1>Dokumentasi CV Web App</h1>
+      <p class="lead">Website publik, dashboard admin, API internal, dan SOP operasional dalam satu halaman HTML.</p>
+      <nav class="top-links">
+        <a href="#cara">Cara Menggunakan</a>
+        <a href="#fitur">Fitur</a>
+        <a href="#alur">Alur Kerja</a>
+        <a href="#alur-user">Alur Per User</a>
+        <a href="#tugas-user">Tugas Per User</a>
+        <a href="#screenshots">Screenshots</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="card" id="quick-nav">
+      <h2>Navigasi Dokumen Markdown</h2>
+      <p>Versi Markdown tetap tersedia untuk tim yang ingin edit cepat lewat repository.</p>
+      <ul class="link-list">
+        <li><a href="README.md">docs/README.md</a></li>
+        <li><a href="01-cara-menggunakan.md">docs/01-cara-menggunakan.md</a></li>
+        <li><a href="02-fitur-ditawarkan.md">docs/02-fitur-ditawarkan.md</a></li>
+        <li><a href="03-alur-kerja-sistem.md">docs/03-alur-kerja-sistem.md</a></li>
+        <li><a href="04-alur-per-user.md">docs/04-alur-per-user.md</a></li>
+        <li><a href="05-tugas-per-user.md">docs/05-tugas-per-user.md</a></li>
+        <li><a href="06-screenshoot-gambar.md">docs/06-screenshoot-gambar.md</a></li>
+      </ul>
+    </section>
+
+    <section class="card" id="cara">
+      <h2>Cara Menggunakan Sistem</h2>
+      <h3>Setup cepat</h3>
+      <pre><code>composer setup
+php artisan db:seed
+php artisan storage:link
+composer dev</code></pre>
+      <h3>Akses utama</h3>
+      <ul>
+        <li>Website publik: /</li>
+        <li>Dashboard admin: /admin</li>
+      </ul>
+      <h3>Akun default</h3>
+      <p>Password semua akun: <strong>password</strong></p>
+      <ul>
+        <li>superadmin@cvniki.test</li>
+        <li>owner@cvniki.test</li>
+        <li>admin@cvniki.test</li>
+        <li>kasir@cvniki.test</li>
+        <li>gudang@cvniki.test</li>
+      </ul>
+      <h3>Job otomatis</h3>
+      <pre><code>php artisan schedule:work
+php artisan queue:work</code></pre>
+    </section>
+
+    <section class="card" id="fitur">
+      <h2>Fitur yang Ditawarkan</h2>
+      <div class="grid two">
+        <article>
+          <h3>Website Publik</h3>
+          <ul>
+            <li>Beranda, Tentang, Katalog, Detail Produk, Kontak</li>
+            <li>Inquiry form dengan validasi, honeypot, dan rate limit</li>
+            <li>Konten dinamis dari CMS</li>
+          </ul>
+        </article>
+        <article>
+          <h3>Dashboard Admin</h3>
+          <ul>
+            <li>Produk, stok, CRM, penjualan, keuangan, procurement</li>
+            <li>Kasir Desk dan Financial Report Center</li>
+            <li>Kelola Website untuk update konten publik</li>
+          </ul>
+        </article>
+        <article>
+          <h3>Integrasi</h3>
+          <ul>
+            <li>WhatsApp quick action transaksi</li>
+            <li>Lampiran dokumen</li>
+            <li>Export PDF dan laporan periodik</li>
+          </ul>
+        </article>
+        <article>
+          <h3>Kontrol Akses</h3>
+          <ul>
+            <li>Role: super_admin, owner, admin, kasir, gudang</li>
+            <li>Permission granular per modul</li>
+            <li>Policy authorization dan activity log</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="card" id="alur">
+      <h2>Alur Kerja Sistem</h2>
+      <ol>
+        <li>Pelanggan melihat produk di website dan kirim inquiry.</li>
+        <li>Admin memproses inquiry menjadi quotation.</li>
+        <li>Quotation dikonversi menjadi sales order.</li>
+        <li>Order diproses, invoice diterbitkan, pembayaran dicatat.</li>
+        <li>Data masuk ke laporan dan monitoring KPI.</li>
+      </ol>
+      <h3>Flow ringkas</h3>
+      <p class="flow">Inquiry -> Quotation -> Sales Order -> Invoice -> Payment -> Report</p>
+    </section>
+
+    <section class="card" id="alur-user">
+      <h2>Alur Per User</h2>
+      <div class="grid two">
+        <article>
+          <h3>super_admin</h3>
+          <p>Kelola konfigurasi, akses, data master, audit, dan intervensi lintas modul.</p>
+        </article>
+        <article>
+          <h3>owner</h3>
+          <p>Review KPI, cashflow, piutang, pengeluaran, dan keputusan strategis.</p>
+        </article>
+        <article>
+          <h3>admin</h3>
+          <p>Menjalankan alur inquiry sampai invoice dan update CMS website.</p>
+        </article>
+        <article>
+          <h3>kasir</h3>
+          <p>Mencatat pembayaran invoice, validasi nominal, dan monitor outstanding.</p>
+        </article>
+        <article>
+          <h3>gudang</h3>
+          <p>Kelola mutasi stok, penerimaan barang, dan cek stok kritis.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="card" id="tugas-user">
+      <h2>Tugas Per User</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Area Tugas</th>
+              <th>super_admin</th>
+              <th>owner</th>
+              <th>admin</th>
+              <th>kasir</th>
+              <th>gudang</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Manajemen user dan role</td>
+              <td>Utama</td>
+              <td>Review</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>Inquiry dan quotation</td>
+              <td>Monitor</td>
+              <td>Monitor</td>
+              <td>Utama</td>
+              <td>Bantuan</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>Sales order dan invoice</td>
+              <td>Monitor</td>
+              <td>Review KPI</td>
+              <td>Utama</td>
+              <td>Utama pembayaran</td>
+              <td>Koordinasi stok</td>
+            </tr>
+            <tr>
+              <td>Procurement dan stok</td>
+              <td>Monitor</td>
+              <td>Review</td>
+              <td>Proses</td>
+              <td>-</td>
+              <td>Utama</td>
+            </tr>
+            <tr>
+              <td>Laporan dan compliance</td>
+              <td>Utama</td>
+              <td>Utama review</td>
+              <td>Support</td>
+              <td>Support</td>
+              <td>Support</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card" id="screenshots">
+      <h2>Screenshots</h2>
+      <p>Berikut gallery screenshot (saat ini placeholder). Ganti file SVG dengan capture asli agar dokumentasi visual final.</p>
+      <div class="gallery">
+        <figure><img src="screenshots/01-login-admin.svg" alt="Login Admin"><figcaption>Login Admin</figcaption></figure>
+        <figure><img src="screenshots/02-dashboard-admin.svg" alt="Dashboard Admin"><figcaption>Dashboard Admin</figcaption></figure>
+        <figure><img src="screenshots/03-produk-kategori.svg" alt="Produk dan Kategori"><figcaption>Produk dan Kategori</figcaption></figure>
+        <figure><img src="screenshots/04-inquiry.svg" alt="Inquiry"><figcaption>Inquiry</figcaption></figure>
+        <figure><img src="screenshots/05-quotation.svg" alt="Quotation"><figcaption>Quotation</figcaption></figure>
+        <figure><img src="screenshots/06-sales-order.svg" alt="Sales Order"><figcaption>Sales Order</figcaption></figure>
+        <figure><img src="screenshots/07-invoice.svg" alt="Invoice"><figcaption>Invoice</figcaption></figure>
+        <figure><img src="screenshots/08-kasir-desk.svg" alt="Kasir Desk"><figcaption>Kasir Desk</figcaption></figure>
+        <figure><img src="screenshots/09-financial-report-center.svg" alt="Financial Report Center"><figcaption>Financial Report Center</figcaption></figure>
+        <figure><img src="screenshots/10-kelola-website.svg" alt="Kelola Website"><figcaption>Kelola Website</figcaption></figure>
+        <figure><img src="screenshots/11-beranda-publik.svg" alt="Beranda Publik"><figcaption>Beranda Publik</figcaption></figure>
+        <figure><img src="screenshots/12-katalog-publik.svg" alt="Katalog Publik"><figcaption>Katalog Publik</figcaption></figure>
+        <figure><img src="screenshots/13-kontak-publik.svg" alt="Kontak Publik"><figcaption>Kontak Publik</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="card" id="pages-setup">
+      <h2>Cara Aktifkan GitHub Pages</h2>
+      <ol>
+        <li>Buka repository di GitHub.</li>
+        <li>Masuk ke Settings -> Pages.</li>
+        <li>Pilih Source: Deploy from a branch.</li>
+        <li>Pilih branch utama (misal main) dan folder /docs.</li>
+        <li>Simpan, lalu tunggu proses publish selesai.</li>
+      </ol>
+      <p>Setelah aktif, halaman utama dokumentasi akan mengarah ke file <strong>docs/index.html</strong>.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p>Dokumentasi CV Web App - HTML untuk GitHub Pages.</p>
+    </div>
+  </footer>
+</body>
+</html>
