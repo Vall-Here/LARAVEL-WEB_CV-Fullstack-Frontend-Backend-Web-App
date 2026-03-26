@@ -1,90 +1,84 @@
 # Screenshoot Gambar
 
-Dokumen ini berisi daftar screenshot wajib untuk dokumentasi sistem.
+Dokumen ini berisi daftar screenshot untuk dokumentasi sistem.
 
-Catatan:
 
-- Folder gambar: docs/screenshots
-- File saat ini berupa placeholder agar struktur dokumentasi siap pakai.
-- Silakan ganti setiap file placeholder dengan screenshot asli dari aplikasi.
-
-## 1. Daftar Screenshot Website Publik
+## Daftar Screenshot Website Publik
 
 1. Halaman beranda publik.
+![Beranda Publik](screenshots/beranda-public.png)
+
 2. Halaman katalog produk.
+![Katalog Produk](screenshots/katalog.png)
 3. Halaman detail produk.
+![Detail Produk](screenshots/detail-product.png)
 4. Halaman kontak + form inquiry.
+![Kontak dan Inquiry](screenshots/kontak-inquiry.png)
+5. Halaman Tentang Kami.
+![Tentang Kami](screenshots/tentang-kami.png)
+
 
 ## 2. Daftar Screenshot Dashboard Admin
 
+### Dashboard
 1. Halaman login admin.
-2. Dashboard utama (widget KPI).
-3. Modul produk/kategori.
-4. Modul inquiry.
-5. Modul quotation.
-6. Modul sales order.
-7. Modul invoice.
-8. Halaman Kasir Desk.
-9. Halaman Financial Report Center.
-10. Halaman Kelola Website.
+![Login Admin](screenshots/login.png)
+2. Dashboard utama (Black).
+![Dashboard Utama](screenshots/dashboard.png)
+3. Dashboard utama (White).
+![Dashboard Utama White](screenshots/dashboard-white.png)
+4. Dashboard utama (Mobile).
+![Dashboard Mobile](screenshots/dashboard-mobile.png)
 
-## 3. Gallery
+### Manajement Website Public (CMS)
+1. Halaman Kelola Website
+![Kelola Website](screenshots/kelola-website.png)
+2. Halaman Kelola Konten
+![Kelola Konten](screenshots/kelola-konten.png)
 
-## Login Admin
+### Penjualan
+1. Kasir Desk
+![Kasir Desk](screenshots/kasir-desk.png)
+2. Quotation
+![Quotation](screenshots/quotation.png)
+![Quotation](screenshots/quotation-2.png)
+3. Sales Order
+![Sales Order](screenshots/sales-order.png)
+![Sales Order](screenshots/sales-order-2.png)
+4. Invoice
+![Invoice](screenshots/invoice.png)
+![Invoice](screenshots/invoice-2.png)
 
-![Login Admin](screenshots/01-login-admin.svg)
+### Keuangan
+1. Financial Report Center
+![Financial Report Center](screenshots/financial-report.png)
+2. Pengeluaran
+![Exspense](screenshots/exspense.png)
+3. Sekutu CV
+![Sekutu CV](screenshots/sekutu.png)
+4. Bagi Hasil
+![Bagi Hasil](screenshots/bagi-hasil.png)
 
-## Dashboard Admin
+### Stok dan Gudang
+1. Category Management
+![Category Management](screenshots/category.png)
+2. Product Management
+![Product Management](screenshots/product.png)
+![Product Management](screenshots/product-2.png)
+3. Riwayat Stok
+![Riwayat Stok](screenshots/riwayat-stok.png)
+4. Gudang
+![Gudang](screenshots/gudang.png)
+5. Procurement
+![Procurement](screenshots/procurement.png)
+![Procurement](screenshots/procurement-2.png)
+6. Supplier
+![Supplier](screenshots/supplier.png)
+7. Purchase Order
+![Purchase Order](screenshots/purchase-order.png)
 
-![Dashboard Admin](screenshots/02-dashboard-admin.svg)
-
-## Produk dan Kategori
-
-![Produk dan Kategori](screenshots/03-produk-kategori.svg)
-
-## Inquiry
-
-![Inquiry](screenshots/04-inquiry.svg)
-
-## Quotation
-
-![Quotation](screenshots/05-quotation.svg)
-
-## Sales Order
-
-![Sales Order](screenshots/06-sales-order.svg)
-
-## Invoice
-
-![Invoice](screenshots/07-invoice.svg)
-
-## Kasir Desk
-
-![Kasir Desk](screenshots/08-kasir-desk.svg)
-
-## Financial Report Center
-
-![Financial Report Center](screenshots/09-financial-report-center.svg)
-
-## Kelola Website
-
-![Kelola Website](screenshots/10-kelola-website.svg)
-
-## Beranda Publik
-
-![Beranda Publik](screenshots/11-beranda-publik.svg)
-
-## Katalog Publik
-
-![Katalog Publik](screenshots/12-katalog-publik.svg)
-
-## Kontak Publik
-
-![Kontak Publik](screenshots/13-kontak-publik.svg)
-
-## 4. Panduan Penggantian Placeholder
-
-1. Ambil screenshot real sesuai judul.
-2. Simpan dengan nama file yang sama agar tautan tetap aktif.
-3. Jika format ingin PNG, boleh ganti file extension dan update link pada dokumen ini.
-4. Resolusi disarankan minimal 1366x768 untuk desktop, dan tambah screenshot mobile jika diperlukan.
+### CRM
+1. Customer
+![Customer](screenshots/customer.png)
+2. Inquiry
+![Inquiry](screenshots/inquiry.png)
