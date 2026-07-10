@@ -1,280 +1,596 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dokumentasi CV Web App</title>
-  <meta name="description" content="Dokumentasi lengkap CV Web App untuk penggunaan, fitur, alur kerja, alur user, tugas user, dan screenshot.">
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fullstack CV Pro - Solusi Manajemen Terpadu</title>
+    <meta name="description" content="Platform operasional end-to-end dengan Website Publik, POS, dan Dashboard Operasional untuk skala bisnis CV Anda.">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1; /* Indigo 500 */
+            --primary-hover: #4f46e5; /* Indigo 600 */
+            --secondary: #f59e0b; /* Amber 500 */
+            --bg-color: #fafaf9; /* Stone 50 */
+            --text-main: #1c1917; /* Stone 900 */
+            --text-muted: #78716c; /* Stone 500 */
+            --card-bg: #ffffff;
+            --border-color: #e7e5e4; /* Stone 200 */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4 { line-height: 1.25; font-weight: 700; color: var(--text-main); }
+
+        h2 {
+            font-size: 2.75rem;
+            text-align: center;
+            margin-bottom: 3.5rem;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px; left: 50%;
+            transform: translateX(-50%);
+            width: 70px; height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 4px;
+        }
+
+        p { color: var(--text-muted); }
+
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1.25rem 5%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            position: fixed; width: 100%; top: 0; z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            font-size: 1.5rem; font-weight: 800; color: var(--primary-hover);
+            text-decoration: none; display: flex; align-items: center; gap: 0.75rem;
+        }
+        
+        .logo-icon {
+            background: linear-gradient(135deg, var(--primary), #8b5cf6);
+            color: white; width: 36px; height: 36px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 10px; font-size: 1.2rem;
+            box-shadow: 0 4px 6px rgba(99, 102, 241, 0.3);
+        }
+
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a { text-decoration: none; color: var(--text-main); font-weight: 600; transition: color 0.3s; font-size: 1rem; }
+        .nav-links a:hover { color: var(--primary); }
+
+        .hero {
+            padding: 11rem 5% 8rem; text-align: center;
+            background: radial-gradient(circle at top right, #eef2ff 0%, #fffbeb 100%);
+            position: relative; overflow: hidden;
+        }
+
+        .hero-content { position: relative; z-index: 1; }
+        
+        .badge {
+            display: inline-block; background: #e0e7ff; color: var(--primary-hover);
+            padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.875rem; font-weight: 700;
+            margin-bottom: 1.5rem; border: 1px solid #c7d2fe;
+        }
+
+        .hero h1 {
+            font-size: 4rem; margin-bottom: 1.5rem;
+            background: -webkit-linear-gradient(45deg, #1c1917, var(--primary));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            letter-spacing: -0.03em;
+        }
+
+        .hero p { font-size: 1.25rem; max-width: 700px; margin: 0 auto 3rem; color: #57534e; }
+
+        .btn {
+            display: inline-block; padding: 1rem 2.5rem; background: var(--primary);
+            color: white; text-decoration: none; border-radius: 999px; font-weight: 600;
+            font-size: 1.1rem; transition: all 0.3s ease;
+            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
+            border: 2px solid transparent; cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--primary-hover); transform: translateY(-3px);
+            box-shadow: 0 20px 25px -5px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.8); color: var(--primary-hover);
+            border: 2px solid var(--primary-hover); box-shadow: none; margin-left: 1rem;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-hover); color: white;
+            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.2);
+        }
+
+        .hero-image-wrapper {
+            margin-top: 6rem; position: relative; z-index: 1; padding: 1rem;
+            background: white; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            border: 1px solid var(--border-color); display: inline-block; max-width: 95%;
+        }
+
+        .hero-image { width: 100%; height: auto; border-radius: 16px; display: block; }
+
+        section { padding: 8rem 5%; }
+
+        .features-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; margin-top: 5rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg); padding: 2.5rem; border-radius: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border: 1px solid var(--border-color);
+            transition: all 0.4s ease; position: relative;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); border-color: #c7d2fe;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem; margin-bottom: 1.5rem; background: linear-gradient(135deg, #e0e7ff, #fef3c7);
+            width: 72px; height: 72px; display: flex; align-items: center; justify-content: center;
+            border-radius: 18px; box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .feature-card h3 { font-size: 1.4rem; margin-bottom: 1rem; color: #1c1917; }
+        .feature-card ul { list-style: none; margin-top: 1.5rem; }
+        .feature-card ul li { margin-bottom: 0.75rem; display: flex; align-items: flex-start; color: var(--text-muted); font-size: 0.95rem; }
+        .feature-card ul li::before {
+            content: '✓'; color: white; background: var(--secondary); margin-right: 0.75rem;
+            font-weight: bold; border-radius: 50%; width: 18px; height: 18px;
+            display: flex; align-items: center; justify-content: center; font-size: 0.7rem; flex-shrink: 0; margin-top: 4px;
+        }
+
+        .gallery-nav { display: flex; justify-content: center; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap; }
+        .gallery-btn {
+            padding: 0.75rem 1.5rem; background: white; border: 1px solid var(--border-color);
+            border-radius: 999px; cursor: pointer; font-weight: 600; color: var(--text-muted); transition: all 0.3s;
+        }
+        .gallery-btn.active, .gallery-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
+
+        .gallery-container { column-count: 3; column-gap: 1.5rem; }
+        @media (max-width: 1024px) { .gallery-container { column-count: 2; } }
+        @media (max-width: 640px) { .gallery-container { column-count: 1; } }
+
+        .gallery-item {
+            break-inside: avoid; margin-bottom: 1.5rem; border-radius: 16px; overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); cursor: pointer; position: relative;
+            background: white; padding: 0.5rem; border: 1px solid var(--border-color); transition: all 0.4s ease;
+        }
+        .gallery-item.hidden { display: none; }
+        .gallery-item img { width: 100%; display: block; border-radius: 12px; transition: transform 0.5s ease; }
+        .gallery-item:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: 0 20px 25px -5px rgba(99, 102, 241, 0.2); }
+        .gallery-item:hover img { transform: scale(1.03); }
+        .gallery-item::after {
+            content: '🔍 Perbesar'; position: absolute; top: 0.5rem; left: 0.5rem; right: 0.5rem; bottom: 0.5rem;
+            background: rgba(28, 25, 23, 0.6); color: white; display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 1.25rem; opacity: 0; transition: opacity 0.3s ease; border-radius: 12px; backdrop-filter: blur(3px);
+        }
+        .gallery-item:hover::after { opacity: 1; }
+
+        .lightbox {
+            display: none; position: fixed; z-index: 1000; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(28, 25, 23, 0.95); backdrop-filter: blur(10px); justify-content: center; align-items: center;
+            padding: 2rem; opacity: 0; transition: opacity 0.3s ease;
+        }
+        .lightbox.active { display: flex; opacity: 1; }
+        .lightbox img { max-width: 90%; max-height: 90vh; border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); transform: scale(0.9); transition: transform 0.3s ease; }
+        .lightbox.active img { transform: scale(1); }
+        .lightbox-close { position: absolute; top: 2rem; right: 3rem; color: white; font-size: 3rem; cursor: pointer; line-height: 1; transition: color 0.3s; }
+        .lightbox-close:hover { color: #ef4444; }
+
+        .tech-tags { display: flex; flex-wrap: wrap; gap: 1.25rem; justify-content: center; margin-top: 3rem; }
+        .tech-tag {
+            background: white; color: var(--text-main); padding: 0.85rem 1.75rem; border-radius: 999px;
+            font-weight: 700; font-size: 1.05rem; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            transition: all 0.3s; display: flex; align-items: center; gap: 0.75rem;
+        }
+        .tech-tag:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.15); }
+
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; margin-top: 5rem; align-items: stretch; }
+        .pricing-card {
+            background: var(--card-bg); border-radius: 24px; padding: 3.5rem 2.5rem; text-align: left;
+            border: 1px solid var(--border-color); position: relative; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); transition: transform 0.3s;
+            display: flex; flex-direction: column;
+        }
+        .pricing-card:hover { transform: translateY(-5px); }
+        .pricing-card.popular {
+            border: 2px solid var(--primary); box-shadow: 0 20px 25px -5px rgba(99, 102, 241, 0.15);
+            transform: scale(1.05); background: linear-gradient(180deg, #ffffff 0%, #eef2ff 100%);
+        }
+        .pricing-card.popular:hover { transform: scale(1.05) translateY(-5px); }
+        
+        .pricing-badge {
+            position: absolute; top: -16px; left: 50%; transform: translateX(-50%); background: var(--primary);
+            color: white; padding: 6px 24px; border-radius: 999px; font-size: 0.9rem; font-weight: 700; box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.3); white-space: nowrap;
+        }
+        .pricing-title { font-size: 1.5rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+        .popular .pricing-title { color: var(--primary-hover); }
+        .price { font-size: 2.8rem; font-weight: 800; color: var(--text-main); margin: 1rem 0 0.5rem; letter-spacing: -0.05em; }
+        .price-desc { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 2.5rem; }
+        .pricing-features { list-style: none; margin-bottom: 3rem; flex-grow: 1; }
+        .pricing-features li { margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.95rem; color: var(--text-main); }
+        .pricing-features li span.check { color: var(--secondary); font-weight: bold; }
+        .btn-full { display: block; width: 100%; text-align: center; margin-top: auto; }
+
+        footer { background: #1c1917; color: #a8a29e; padding: 4rem 5% 2rem; }
+        .footer-content {
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem;
+            border-bottom: 1px solid #292524; padding-bottom: 2rem; margin-bottom: 2rem;
+        }
+        .footer-logo { font-size: 1.5rem; font-weight: 800; color: white; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+        
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; } .nav-links { display: none; }
+            .pricing-card.popular { transform: none; } .pricing-card.popular:hover { transform: translateY(-5px); }
+        }
+    </style>
 </head>
 <body>
-  <header class="hero">
-    <div class="wrap">
-      <p class="eyebrow">Dokumentasi</p>
-      <h1>Dokumentasi CV Web App</h1>
-      <p class="lead">Website publik, dashboard admin, API internal, dan SOP operasional dalam satu halaman HTML.</p>
-      <nav class="top-links">
-        <a href="#cara">Cara Menggunakan</a>
-        <a href="#fitur">Fitur</a>
-        <a href="#alur">Alur Kerja</a>
-        <a href="#alur-user">Alur Per User</a>
-        <a href="#tugas-user">Tugas Per User</a>
-        <a href="#screenshots">Screenshots</a>
-      </nav>
+
+    <nav>
+        <a href="#" class="logo">
+            <div class="logo-icon">CV</div>
+            Fullstack CV Pro
+        </a>
+        <div class="nav-links">
+            <a href="#features">Modul Utama</a>
+            <a href="#gallery">Antarmuka</a>
+            <a href="#tech">Teknologi</a>
+            <a href="#pricing">Paket Harga</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <span class="badge">🚀 Solusi End-to-End untuk Bisnis</span>
+            <h1>Manajemen CV Terintegrasi Penuh</h1>
+            <p>Dari etalase website publik yang memukau hingga dashboard operasional (POS, Gudang, Keuangan) yang powerful. Semua dalam satu ekosistem.</p>
+            <div>
+                <a href="#pricing" class="btn">Lihat Penawaran</a>
+                <a href="#features" class="btn btn-outline">Eksplorasi Fitur</a>
+            </div>
+        </div>
+        <div class="hero-image-wrapper">
+            <img src="screenshots/dashboard.png" alt="Preview Dashboard Admin" class="hero-image" loading="lazy">
+        </div>
+    </header>
+
+    <section id="features">
+        <h2>Modul & Fitur Eksekutif</h2>
+        <p style="text-align: center; font-size: 1.15rem; max-width: 700px; margin: 0 auto;">Arsitektur komprehensif yang menjembatani pemasaran digital dengan efisiensi operasional.</p>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🌐</div>
+                <h3>Website Publik & CMS</h3>
+                <ul>
+                    <li>Katalog produk dinamis dengan filter kategori.</li>
+                    <li>Sistem Inquiry & Form Kontak berpelindung spam.</li>
+                    <li>Manajemen Konten (CMS) fleksibel dari dashboard.</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🛒</div>
+                <h3>Penjualan End-to-End</h3>
+                <ul>
+                    <li>Modul Kasir (POS Desk) terintegrasi.</li>
+                    <li>Siklus Quotation → Sales Order → Invoice otomatis.</li>
+                    <li>Pencatatan pembayaran parsial maupun lunas.</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📦</div>
+                <h3>Stok & Gudang</h3>
+                <ul>
+                    <li>Pemantauan multi-gudang dan histori pergerakan.</li>
+                    <li>Alert otomatis untuk level stok kritis.</li>
+                    <li>Manajemen Procurement & Purchase Order ke Supplier.</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Keuangan & Laporan</h3>
+                <ul>
+                    <li>Pencatatan pengeluaran & pendapatan komprehensif.</li>
+                    <li>Financial Report Center dengan Export PDF.</li>
+                    <li>Distribusi dan perhitungan bagi hasil Sekutu otomatis.</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3>CRM & Master Data</h3>
+                <ul>
+                    <li>Manajemen data Customer & Supplier terpusat.</li>
+                    <li>Rekam jejak Inquiry pengunjung website.</li>
+                    <li>Profil Sekutu (Pemegang Saham/Mitra).</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔐</div>
+                <h3>Keamanan & API</h3>
+                <ul>
+                    <li>Role-Based Access Control (Super Admin, Kasir, Gudang).</li>
+                    <li>Audit Activity Log untuk transparansi penuh.</li>
+                    <li>API Internal dengan otentikasi Laravel Sanctum.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" style="background: white;">
+        <h2>Galeri Antarmuka Lengkap</h2>
+        <p style="text-align: center; margin-bottom: 2rem; font-size: 1.15rem;">Klik gambar untuk memperbesar resolusi layar.</p>
+        
+        <div class="gallery-nav">
+            <button class="gallery-btn active" onclick="filterGallery('all', event)">Semua Tampilan</button>
+            <button class="gallery-btn" onclick="filterGallery('frontend', event)">Frontend (Publik)</button>
+            <button class="gallery-btn" onclick="filterGallery('backend', event)">Backend (Admin)</button>
+        </div>
+
+        <div class="gallery-container">
+            <!-- Frontend Images -->
+            <div class="gallery-item filter-frontend" onclick="openLightbox('screenshots/beranda-public.png')">
+                <img src="screenshots/beranda-public.png" alt="Beranda Publik" loading="lazy">
+            </div>
+            <div class="gallery-item filter-frontend" onclick="openLightbox('screenshots/katalog.png')">
+                <img src="screenshots/katalog.png" alt="Katalog Produk" loading="lazy">
+            </div>
+            <div class="gallery-item filter-frontend" onclick="openLightbox('screenshots/detail-product.png')">
+                <img src="screenshots/detail-product.png" alt="Detail Produk" loading="lazy">
+            </div>
+            <div class="gallery-item filter-frontend" onclick="openLightbox('screenshots/kontak-inquiry.png')">
+                <img src="screenshots/kontak-inquiry.png" alt="Kontak dan Inquiry" loading="lazy">
+            </div>
+            <div class="gallery-item filter-frontend" onclick="openLightbox('screenshots/tentang-kami.png')">
+                <img src="screenshots/tentang-kami.png" alt="Tentang Kami" loading="lazy">
+            </div>
+
+            <!-- Backend Images -->
+            <div class="gallery-item filter-backend" onclick="openLightbox('screenshots/login.png')">
+                <img src="screenshots/login.png" alt="Login Admin" loading="lazy">
+            </div>
+            <div class="gallery-item filter-backend" onclick="openLightbox('screenshots/dashboard.png')">
+                <img src="screenshots/dashboard.png" alt="Dashboard Utama" loading="lazy">
+            </div>
+            <div class="gallery-item filter-backend" onclick="openLightbox('screenshots/dashboard-white.png')">
+                <img src="screenshots/dashboard-white.png" alt="Dashboard Utama White" loading="lazy">
+            </div>
+            <div class="gallery-item filter-backend" onclick="openLightbox('screenshots/dashboard-mobile.png')">
+                <img src="screenshots/dashboard-mobile.png" alt="Dashboard Mobile" loading="lazy">
+            </div>
+            
+            <div class="gallery-item filter-backend" onclick="openLightbox('screenshots/kelola-website.png')">
+                <img src="screenshots/kelola-website.png" alt="Kelola Website" loading="lazy">
+            </div>
+            <div class="gallery-item filter-backend" onclick="openLightbox('screenshots/kelola-konten.png')">
+                <img src="screenshots/kelola-konten.png" alt="Kelola Konten" loading="lazy">
+            </div>
+
+            <div class="gallery-item filter-backend" onclick="openLightbox('screenshots/kasir-desk.png')">
+                <img src="screenshots/kasir-desk.png" alt="Kasir Desk" loading="lazy">
+            </div>
+            <div class="gallery-item filter-backend" onclick="openLightbox('screenshots/quotation.png')">
+                <img src="screenshots/quotation.png" alt="Quotation" loading="lazy">
+            </div>
+            <div class="gallery-item filter-backend" onclick="openLightbox('screenshots/quotation-2.png')">
+                <img src="screenshots/quotation-2.png" alt="Quotation 2" loading="lazy">
+            </div>
+            <div class="gallery-item filter-backend" onclick="openLightbox('screenshots/sales-order.png')">
+                <img src="screenshots/sales-order.png" alt="Sales Order" loading="lazy">
+            </div>
+            <div class="gallery-item filter-backend" onclick="openLightbox('screenshots/sales-order-2.png')">
+                <img src="screenshots/sales-order-2.png" alt="Sales Order 2" loading="lazy">
+            </div>
+            <div class="gallery-item filter-backend" onclick="openLightbox('screenshots/invoice.png')">
+                <img src="screenshots/invoice.png" alt="Invoice" loading="lazy">
+            </div>
+            <div class="gallery-item filter-backend" onclick="openLightbox('screenshots/invoice-2.png')">
+                <img src="screenshots/invoice-2.png" alt="Invoice 2" loading="lazy">
+            </div>
+
+            <div class="gallery-item filter-backend" onclick="openLightbox('screenshots/financial-report.png')">
+                <img src="screenshots/financial-report.png" alt="Financial Report Center" loading="lazy">
+            </div>
+            <div class="gallery-item filter-backend" onclick="openLightbox('screenshots/exspense.png')">
+                <img src="screenshots/exspense.png" alt="Pengeluaran" loading="lazy">
+            </div>
+            <div class="gallery-item filter-backend" onclick="openLightbox('screenshots/sekutu.png')">
+                <img src="screenshots/sekutu.png" alt="Sekutu CV" loading="lazy">
+            </div>
+            <div class="gallery-item filter-backend" onclick="openLightbox('screenshots/bagi-hasil.png')">
+                <img src="screenshots/bagi-hasil.png" alt="Bagi Hasil" loading="lazy">
+            </div>
+
+            <div class="gallery-item filter-backend" onclick="openLightbox('screenshots/category.png')">
+                <img src="screenshots/category.png" alt="Kategori" loading="lazy">
+            </div>
+            <div class="gallery-item filter-backend" onclick="openLightbox('screenshots/product.png')">
+                <img src="screenshots/product.png" alt="Manajemen Produk" loading="lazy">
+            </div>
+            <div class="gallery-item filter-backend" onclick="openLightbox('screenshots/product-2.png')">
+                <img src="screenshots/product-2.png" alt="Manajemen Produk 2" loading="lazy">
+            </div>
+            <div class="gallery-item filter-backend" onclick="openLightbox('screenshots/riwayat-stok.png')">
+                <img src="screenshots/riwayat-stok.png" alt="Riwayat Stok" loading="lazy">
+            </div>
+            <div class="gallery-item filter-backend" onclick="openLightbox('screenshots/gudang.png')">
+                <img src="screenshots/gudang.png" alt="Gudang" loading="lazy">
+            </div>
+            
+            <div class="gallery-item filter-backend" onclick="openLightbox('screenshots/procurement.png')">
+                <img src="screenshots/procurement.png" alt="Procurement" loading="lazy">
+            </div>
+            <div class="gallery-item filter-backend" onclick="openLightbox('screenshots/procurement-2.png')">
+                <img src="screenshots/procurement-2.png" alt="Procurement 2" loading="lazy">
+            </div>
+            <div class="gallery-item filter-backend" onclick="openLightbox('screenshots/supplier.png')">
+                <img src="screenshots/supplier.png" alt="Supplier" loading="lazy">
+            </div>
+            <div class="gallery-item filter-backend" onclick="openLightbox('screenshots/purchase-order.png')">
+                <img src="screenshots/purchase-order.png" alt="Purchase Order" loading="lazy">
+            </div>
+
+            <div class="gallery-item filter-backend" onclick="openLightbox('screenshots/customer.png')">
+                <img src="screenshots/customer.png" alt="Customer" loading="lazy">
+            </div>
+            <div class="gallery-item filter-backend" onclick="openLightbox('screenshots/inquiry.png')">
+                <img src="screenshots/inquiry.png" alt="Inquiry" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <section id="tech">
+        <h2>Performa Standar Enterprise</h2>
+        <p style="text-align: center; margin-bottom: 2rem; font-size: 1.15rem; max-width: 700px; margin-left: auto; margin-right: auto;">
+            Sistem ini dipersenjatai dengan Framework berkinerja tinggi untuk stabilitas pemrosesan data.
+        </p>
+        <div class="tech-tags">
+            <span class="tech-tag"><span style="color: #ef4444; font-size: 1.2rem;">L</span> Laravel 11</span>
+            <span class="tech-tag"><span style="color: #0ea5e9; font-size: 1.2rem;">~</span> Tailwind CSS</span>
+            <span class="tech-tag"><span style="color: #4f46e5; font-size: 1.2rem;">⚡</span> Filament & Livewire</span>
+            <span class="tech-tag"><span style="color: #10b981; font-size: 1.2rem;">🔒</span> Spatie Permissions</span>
+            <span class="tech-tag"><span style="color: #f59e0b; font-size: 1.2rem;">🔑</span> Laravel Sanctum</span>
+        </div>
+    </section>
+
+    <section id="pricing" style="background: white;">
+        <h2>Investasi Sistem Digitalisasi</h2>
+        <p style="text-align: center; font-size: 1.15rem; max-width: 700px; margin: 0 auto;">Transparan, tanpa biaya tersembunyi. Miliki kendali penuh operasional bisnis Anda.</p>
+        
+        <div class="pricing-grid">
+            <!-- Jasa Tambahan -->
+            <div class="pricing-card">
+                <h3 class="pricing-title">Add-ons & Kustomisasi</h3>
+                <div style="margin-top: 1.5rem; flex-grow: 1;">
+                    <div style="margin-bottom: 2rem;">
+                        <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: #1c1917;">Biaya Setup Awal</h4>
+                        <p style="font-size: 0.95rem; margin-bottom: 0.5rem;">Instalasi di server, konfigurasi awal, dan testing.</p>
+                        <div style="font-size: 1.75rem; font-weight: 700; color: var(--primary);">Rp 500.000</div>
+                    </div>
+                    <div>
+                        <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: #1c1917;">Custom Fitur</h4>
+                        <p style="font-size: 0.95rem; margin-bottom: 0.5rem;">Penambahan modul/fitur baru sesuai request bisnis Anda.</p>
+                        <div style="font-size: 1.75rem; font-weight: 700; color: var(--primary);">Rp 150.000 <span style="font-size:1rem; color:var(--text-muted); font-weight:normal;">/ fitur</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Paket Dasar -->
+            <div class="pricing-card popular">
+                <div class="pricing-badge">Lisensi Sistem Utama</div>
+                <h3 class="pricing-title">Core System License</h3>
+                <div class="price">Rp 3.0 Juta</div>
+                <p class="price-desc">Lisensi Sekali Bayar (Source Code)</p>
+                
+                <ul class="pricing-features">
+                    <li><span class="check">✔️</span> Modul CMS Website Publik Penuh</li>
+                    <li><span class="check">✔️</span> Modul POS & Sales Pipeline (SO, Invoice)</li>
+                    <li><span class="check">✔️</span> Modul Stok, Gudang & Procurement</li>
+                    <li><span class="check">✔️</span> Modul Keuangan & Bagi Hasil Sekutu</li>
+                    <li><span class="check">✔️</span> Sistem Multi-Role User Access</li>
+                    <li><span class="check">✔️</span> API Internal tersertifikasi Sanctum</li>
+                </ul>
+                <a href="mailto:ahmadnoval.muhyiddin@gmail.com" class="btn btn-full">Beli Sistem Sekarang</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <a href="#" class="footer-logo">
+                <div class="logo-icon" style="width: 30px; height: 30px; font-size: 1rem;">CV</div>
+                Fullstack CV Pro
+            </a>
+            <div style="display: flex; gap: 2rem;">
+                <a href="#features" style="color: #a8a29e; text-decoration: none;">Fitur</a>
+                <a href="#gallery" style="color: #a8a29e; text-decoration: none;">Galeri</a>
+                <a href="#pricing" style="color: #a8a29e; text-decoration: none;">Harga</a>
+            </div>
+        </div>
+        <p style="text-align: center;">&copy; 2026 Fullstack CV Pro. Seluruh hak cipta dilindungi undang-undang.</p>
+    </footer>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close" title="Tutup">&times;</span>
+        <img id="lightbox-img" src="" alt="Preview">
     </div>
-  </header>
 
-  <main class="wrap">
-    <section class="card" id="quick-nav">
-      <h2>Navigasi Dokumen Markdown</h2>
-      <p>Versi Markdown tetap tersedia untuk tim yang ingin edit cepat lewat repository.</p>
-      <ul class="link-list">
-        <li><a href="README.md">docs/README.md</a></li>
-        <li><a href="01-cara-menggunakan.md">docs/01-cara-menggunakan.md</a></li>
-        <li><a href="02-fitur-ditawarkan.md">docs/02-fitur-ditawarkan.md</a></li>
-        <li><a href="03-alur-kerja-sistem.md">docs/03-alur-kerja-sistem.md</a></li>
-        <li><a href="04-alur-per-user.md">docs/04-alur-per-user.md</a></li>
-        <li><a href="05-tugas-per-user.md">docs/05-tugas-per-user.md</a></li>
-        <li><a href="06-screenshoot-gambar.md">docs/06-screenshoot-gambar.md</a></li>
-      </ul>
-    </section>
+    <script>
+        function openLightbox(imgSrc) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = imgSrc;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
 
-    <section class="card" id="cara">
-      <h2>Cara Menggunakan Sistem</h2>
-      <h3>Setup cepat</h3>
-      <pre><code>composer setup
-php artisan db:seed
-php artisan storage:link
-composer dev</code></pre>
-      <h3>Akses utama</h3>
-      <ul>
-        <li>Website publik: /</li>
-        <li>Dashboard admin: /admin</li>
-      </ul>
-      <h3>Akun default</h3>
-      <p>Password semua akun: <strong>password</strong></p>
-      <ul>
-        <li>superadmin@cvniki.test</li>
-        <li>owner@cvniki.test</li>
-        <li>admin@cvniki.test</li>
-        <li>kasir@cvniki.test</li>
-        <li>gudang@cvniki.test</li>
-      </ul>
-      <h3>Job otomatis</h3>
-      <pre><code>php artisan schedule:work
-php artisan queue:work</code></pre>
-    </section>
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            setTimeout(() => {
+                const lightboxImg = document.getElementById('lightbox-img');
+                if(!lightbox.classList.contains('active')) {
+                    lightboxImg.src = "";
+                }
+            }, 300);
+        }
 
-    <section class="card" id="fitur">
-      <h2>Fitur yang Ditawarkan</h2>
-      <div class="grid two">
-        <article>
-          <h3>Website Publik</h3>
-          <ul>
-            <li>Beranda, Tentang, Katalog, Detail Produk, Kontak</li>
-            <li>Inquiry form dengan validasi, honeypot, dan rate limit</li>
-            <li>Konten dinamis dari CMS</li>
-          </ul>
-        </article>
-        <article>
-          <h3>Dashboard Admin</h3>
-          <ul>
-            <li>Produk, stok, CRM, penjualan, keuangan, procurement</li>
-            <li>Kasir Desk dan Financial Report Center</li>
-            <li>Kelola Website untuk update konten publik</li>
-          </ul>
-        </article>
-        <article>
-          <h3>Integrasi</h3>
-          <ul>
-            <li>WhatsApp quick action transaksi</li>
-            <li>Lampiran dokumen</li>
-            <li>Export PDF dan laporan periodik</li>
-          </ul>
-        </article>
-        <article>
-          <h3>Kontrol Akses</h3>
-          <ul>
-            <li>Role: super_admin, owner, admin, kasir, gudang</li>
-            <li>Permission granular per modul</li>
-            <li>Policy authorization dan activity log</li>
-          </ul>
-        </article>
-      </div>
-    </section>
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") closeLightbox();
+        });
 
-    <section class="card" id="alur">
-      <h2>Alur Kerja Sistem</h2>
-      <ol>
-        <li>Pelanggan melihat produk di website dan kirim inquiry.</li>
-        <li>Admin memproses inquiry menjadi quotation.</li>
-        <li>Quotation dikonversi menjadi sales order.</li>
-        <li>Order diproses, invoice diterbitkan, pembayaran dicatat.</li>
-        <li>Data masuk ke laporan dan monitoring KPI.</li>
-      </ol>
-      <h3>Flow ringkas</h3>
-      <p class="flow">Inquiry -> Quotation -> Sales Order -> Invoice -> Payment -> Report</p>
-    </section>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 90,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
 
-    <section class="card" id="alur-user">
-      <h2>Alur Per User</h2>
-      <div class="grid two">
-        <article>
-          <h3>super_admin</h3>
-          <p>Kelola konfigurasi, akses, data master, audit, dan intervensi lintas modul.</p>
-        </article>
-        <article>
-          <h3>owner</h3>
-          <p>Review KPI, cashflow, piutang, pengeluaran, dan keputusan strategis.</p>
-        </article>
-        <article>
-          <h3>admin</h3>
-          <p>Menjalankan alur inquiry sampai invoice dan update CMS website.</p>
-        </article>
-        <article>
-          <h3>kasir</h3>
-          <p>Mencatat pembayaran invoice, validasi nominal, dan monitor outstanding.</p>
-        </article>
-        <article>
-          <h3>gudang</h3>
-          <p>Kelola mutasi stok, penerimaan barang, dan cek stok kritis.</p>
-        </article>
-      </div>
-    </section>
+        function filterGallery(category, event) {
+            document.querySelectorAll('.gallery-btn').forEach(btn => btn.classList.remove('active'));
+            if(event) event.target.classList.add('active');
 
-    <section class="card" id="tugas-user">
-      <h2>Tugas Per User</h2>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Area Tugas</th>
-              <th>super_admin</th>
-              <th>owner</th>
-              <th>admin</th>
-              <th>kasir</th>
-              <th>gudang</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Manajemen user dan role</td>
-              <td>Utama</td>
-              <td>Review</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-            </tr>
-            <tr>
-              <td>Inquiry dan quotation</td>
-              <td>Monitor</td>
-              <td>Monitor</td>
-              <td>Utama</td>
-              <td>Bantuan</td>
-              <td>-</td>
-            </tr>
-            <tr>
-              <td>Sales order dan invoice</td>
-              <td>Monitor</td>
-              <td>Review KPI</td>
-              <td>Utama</td>
-              <td>Utama pembayaran</td>
-              <td>Koordinasi stok</td>
-            </tr>
-            <tr>
-              <td>Procurement dan stok</td>
-              <td>Monitor</td>
-              <td>Review</td>
-              <td>Proses</td>
-              <td>-</td>
-              <td>Utama</td>
-            </tr>
-            <tr>
-              <td>Laporan dan compliance</td>
-              <td>Utama</td>
-              <td>Utama review</td>
-              <td>Support</td>
-              <td>Support</td>
-              <td>Support</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <section class="card" id="screenshots">
-      <h2>Screenshots</h2>
-      <p>Berikut galeri screenshot berdasarkan dokumen markdown.</p>
-
-      <h3>Website Publik</h3>
-      <div class="gallery">
-        <figure><img src="screenshots/beranda-public.png" alt="Beranda Publik"><figcaption>Halaman beranda publik</figcaption></figure>
-        <figure><img src="screenshots/katalog.png" alt="Katalog Produk"><figcaption>Halaman katalog produk</figcaption></figure>
-        <figure><img src="screenshots/detail-product.png" alt="Detail Produk"><figcaption>Halaman detail produk</figcaption></figure>
-        <figure><img src="screenshots/kontak-inquiry.png" alt="Kontak dan Inquiry"><figcaption>Halaman kontak dan form inquiry</figcaption></figure>
-        <figure><img src="screenshots/tentang-kami.png" alt="Tentang Kami"><figcaption>Halaman Tentang Kami</figcaption></figure>
-      </div>
-
-      <h3>Dashboard Admin</h3>
-      <div class="gallery">
-        <figure><img src="screenshots/login.png" alt="Login Admin"><figcaption>Halaman login admin</figcaption></figure>
-        <figure><img src="screenshots/dashboard.png" alt="Dashboard Utama Black"><figcaption>Dashboard utama (Black)</figcaption></figure>
-        <figure><img src="screenshots/dashboard-white.png" alt="Dashboard Utama White"><figcaption>Dashboard utama (White)</figcaption></figure>
-        <figure><img src="screenshots/dashboard-mobile.png" alt="Dashboard Mobile"><figcaption>Dashboard utama (Mobile)</figcaption></figure>
-      </div>
-
-      <h3>Manajement Website Public (CMS)</h3>
-      <div class="gallery">
-        <figure><img src="screenshots/kelola-website.png" alt="Kelola Website"><figcaption>Halaman Kelola Website</figcaption></figure>
-        <figure><img src="screenshots/kelola-konten.png" alt="Kelola Konten"><figcaption>Halaman Kelola Konten</figcaption></figure>
-      </div>
-
-      <h3>Penjualan</h3>
-      <div class="gallery">
-        <figure><img src="screenshots/kasir-desk.png" alt="Kasir Desk"><figcaption>Kasir Desk</figcaption></figure>
-        <figure><img src="screenshots/quotation.png" alt="Quotation 1"><figcaption>Quotation</figcaption></figure>
-        <figure><img src="screenshots/quotation-2.png" alt="Quotation 2"><figcaption>Quotation (2)</figcaption></figure>
-        <figure><img src="screenshots/sales-order.png" alt="Sales Order 1"><figcaption>Sales Order</figcaption></figure>
-        <figure><img src="screenshots/sales-order-2.png" alt="Sales Order 2"><figcaption>Sales Order (2)</figcaption></figure>
-        <figure><img src="screenshots/invoice.png" alt="Invoice 1"><figcaption>Invoice</figcaption></figure>
-        <figure><img src="screenshots/invoice-2.png" alt="Invoice 2"><figcaption>Invoice (2)</figcaption></figure>
-      </div>
-
-      <h3>Keuangan</h3>
-      <div class="gallery">
-        <figure><img src="screenshots/financial-report.png" alt="Financial Report Center"><figcaption>Financial Report Center</figcaption></figure>
-        <figure><img src="screenshots/exspense.png" alt="Exspense"><figcaption>Pengeluaran</figcaption></figure>
-        <figure><img src="screenshots/sekutu.png" alt="Sekutu CV"><figcaption>Sekutu CV</figcaption></figure>
-        <figure><img src="screenshots/bagi-hasil.png" alt="Bagi Hasil"><figcaption>Bagi Hasil</figcaption></figure>
-      </div>
-
-      <h3>Stok dan Gudang</h3>
-      <div class="gallery">
-        <figure><img src="screenshots/category.png" alt="Category Management"><figcaption>Category Management</figcaption></figure>
-        <figure><img src="screenshots/product.png" alt="Product Management 1"><figcaption>Product Management</figcaption></figure>
-        <figure><img src="screenshots/product-2.png" alt="Product Management 2"><figcaption>Product Management (2)</figcaption></figure>
-        <figure><img src="screenshots/riwayat-stok.png" alt="Riwayat Stok"><figcaption>Riwayat Stok</figcaption></figure>
-        <figure><img src="screenshots/gudang.png" alt="Gudang"><figcaption>Gudang</figcaption></figure>
-        <figure><img src="screenshots/procurement.png" alt="Procurement 1"><figcaption>Procurement</figcaption></figure>
-        <figure><img src="screenshots/procurement-2.png" alt="Procurement 2"><figcaption>Procurement (2)</figcaption></figure>
-        <figure><img src="screenshots/supplier.png" alt="Supplier"><figcaption>Supplier</figcaption></figure>
-        <figure><img src="screenshots/purchase-order.png" alt="Purchase Order"><figcaption>Purchase Order</figcaption></figure>
-      </div>
-
-      <h3>CRM</h3>
-      <div class="gallery">
-        <figure><img src="screenshots/customer.png" alt="Customer"><figcaption>Customer</figcaption></figure>
-        <figure><img src="screenshots/inquiry.png" alt="Inquiry"><figcaption>Inquiry</figcaption></figure>
-      </div>
-    </section>
-
-    
-  </main>
-
-  <footer class="footer">
-    <div class="wrap">
-      <p>Dokumentasi CV Web App - .</p>
-    </div>
-  </footer>
+            const items = document.querySelectorAll('.gallery-item');
+            items.forEach(item => {
+                if (category === 'all') {
+                    item.classList.remove('hidden');
+                } else if (category === 'frontend') {
+                    item.classList.contains('filter-frontend') ? item.classList.remove('hidden') : item.classList.add('hidden');
+                } else if (category === 'backend') {
+                    item.classList.contains('filter-backend') ? item.classList.remove('hidden') : item.classList.add('hidden');
+                }
+            });
+        }
+    </script>
 </body>
 </html>
