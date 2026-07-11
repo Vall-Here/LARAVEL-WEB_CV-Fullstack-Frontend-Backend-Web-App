@@ -14,6 +14,22 @@ Proses Penjualan pada sistem ini didesain bertahap agar tidak ada pesanan fiktif
 
 ---
 
+## 🎬 Contoh Kasus Penggunaan (Skenario Dunia Nyata)
+
+Mari kita bayangkan skenario seorang pelanggan yang ingin membeli barang di CV Anda:
+
+- **Pelanggan Mengisi Form di Website:** Pelanggan masuk ke website profil perusahaan Anda, melihat-lihat katalog produk, lalu mengisi Formulir Hubungi Kami atau Minta Penawaran. Mereka mengetikkan Nama, Email, Nomor Telepon, dan produk apa yang mereka butuhkan.
+- **Masuk ke Dasbor Admin:** Begitu pelanggan menekan tombol *Submit* di website, datanya akan langsung "masuk" ke tabel Inquiry di Admin Panel Anda dengan status merah: `Baru`.
+- **Bagaimana Admin Menjawabnya?**
+  - Di dasbor, Admin bisa membaca pesannya, lalu mengklik tombol **Tandai Dibaca**.
+  - Admin kemudian menghubungi pelanggan tersebut secara langsung (via WhatsApp atau membalas Email yang tertera di sistem).
+  - Selama proses tawar-menawar (bolak-balik) via WA/Email, Admin bisa terus memperbarui kolom **"Catatan Admin"** di halaman Edit Inquiry tersebut agar rekan kerja lain tau progress-nya sampai mana (Misal: *"Sudah ditelepon tgl 12, masih mikir-mikir"*). Statusnya bisa diubah menjadi `Ditindaklanjuti`.
+- **Jika Pelanggan Bertanya Lagi / Beli Lagi Nanti:**
+  - Jika mereka mengisi form website lagi minggu depan, sistem akan membuat dokumen *Inquiry* baru.
+  - Jika mereka cuma *nge-chat* via WA melanjutkan dari obrolan yang lama, Admin tidak perlu membuat *Inquiry* baru, melainkan langsung saja melompat ke tahap membuatkan **Quotation** (Penawaran Resmi) berdasarkan chat tersebut, atau meng-edit catatan yang lama.
+
+---
+
 ## 📊 Flowchart Proses Penjualan
 
 ```mermaid

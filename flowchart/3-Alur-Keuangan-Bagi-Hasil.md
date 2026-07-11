@@ -12,6 +12,18 @@ Modul ini adalah pusat muara dari seluruh transaksi yang terjadi di Modul Penjua
 
 ---
 
+## 🎬 Contoh Kasus Penggunaan (Skenario Dunia Nyata)
+
+Mari kita bayangkan skenario ketika akhir bulan tiba dan waktunya tutup buku:
+
+- **Biaya Tak Terduga (Mencatat Expense):** Sepanjang bulan berjalan, kasir secara rutin telah mencatat biaya-biaya harian ke menu *Pengeluaran*. Misalnya: bayar token listrik 2 juta, beli kopi 100 ribu, dan servis mobil operasional 500 ribu.
+- **Manajer Mengecek Dasbor:** Di tanggal 31, Manajer membuka dasbor *Financial Report Center*. Ia sedikit kaget karena membaca Laporan Laba Rugi: *"Wah Laba Bersih kita bulan ini fantastis, 50 Juta! (berdasarkan semua SO yang deal). Tapi kok di Laporan Arus Kas, uang tunainya cuma sisa 10 Juta?"*
+- **Menagih Piutang:** Setelah diusut dengan melihat tabel *Piutang Pelanggan* di bawah grafik, ternyata ada 2 Pabrik besar yang *Invoice*-nya belum dilunasi. Manajer pun segera menyuruh tim Sales untuk menagih.
+- **Pembagian Hasil yang Adil:** Setelah seminggu berlalu dan piutang tertagih, uang kas akhirnya sehat kembali. Owner sepakat membagikan 20 Juta sebagai dividen bulan tersebut. Bagian Keuangan membuka menu *Profit Distributions*, membuat data baru, dan memasukkan angka **20 Juta**. 
+- **Efek Sistem:** Otomatis, tanpa kalkulator, sistem memecah uang tersebut menjadi jatah Pak Andi (60%) sebesar 12 Juta, dan Pak Budi (40%) sebesar 8 Juta (Sesuai porsi modal yang terdaftar). Bagian Keuangan tinggal transfer m-Banking, dan laporannya tersimpan rapi selamanya.
+
+---
+
 ## 📊 Flowchart Laporan & Bagi Hasil (Profit Distribution)
 
 ```mermaid

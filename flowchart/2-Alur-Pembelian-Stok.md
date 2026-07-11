@@ -13,6 +13,17 @@ Alur Pembelian dan Pengadaan mengatur bagaimana perusahaan menambah stok barang 
 
 ---
 
+## 🎬 Contoh Kasus Penggunaan (Skenario Dunia Nyata)
+
+Mari kita bayangkan skenario ketika stok sebuah barang menipis:
+
+- **Gudang Bertindak (Membuat Procurement):** Admin Gudang melihat fisik stok *Mesin Las* tersisa 0 unit karena baru saja diborong pelanggan. Ia membuka menu *Procurement*, membuat pengajuan "Beli 5 Mesin Las", dan menyimpannya. Statusnya kini adalah `Draft` (Menunggu Persetujuan).
+- **Manajer Mengontrol Uang (Membuat PO):** Sore harinya, Manajer mengecek sistem. Ia melihat ada pengajuan dari Gudang. Manajer mengklik "Approve" pada pengajuan tersebut, lalu mengklik tombol **Buat Purchase Order**. Manajer memilih Supplier langganan (*PT Baja Sentosa*) dan mengecek harganya. Setelah disetujui, Manajer mengirimkan rincian PO via tombol "Kirim WA" ke kontak PT Baja Sentosa.
+- **Barang Datang (Receive & Kas Keluar):** 3 hari kemudian, truk PT Baja Sentosa tiba di gudang. Staf gudang mengecek isi muatan, dan ternyata benar ada 5 unit mesin las. Staf gudang buka sistem, mencari PO tersebut, lalu mengklik tombol **Terima Barang** (*Receive*). 
+- **Efek Sistem:** DETIK ITU JUGA, stok mesin las di sistem otomatis bertambah menjadi 5 unit, dan bagian Keuangan mencatat bahwa perusahaan baru saja mengeluarkan uang kas tunai untuk melunasi kulakan tersebut.
+
+---
+
 ## 📊 Flowchart Proses Pembelian (Procurement)
 
 ```mermaid
