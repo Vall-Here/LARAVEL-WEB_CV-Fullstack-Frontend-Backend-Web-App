@@ -2,35 +2,47 @@
 
 Proses Penjualan pada sistem ini didesain bertahap agar tidak ada pesanan fiktif yang terlanjur mengeluarkan barang dari gudang. Proses ini wajib dikelola oleh tim Sales dan Kasir secara berurutan.
 
+## 💡 Konsep Dasar yang Wajib Dipahami Admin
+
+1. **Inquiry BUKAN dibuat oleh Admin!**
+   Inquiry adalah "Kotak Masuk" (Inbox) dari _Website Publik_. Saat ada calon pembeli melihat-lihat website CV Anda dan mengisi formulir "Hubungi Kami", datanya akan otomatis terkirim ke menu Inquiry di Admin Panel dengan status `Baru`. Admin tidak bisa membuat Inquiry secara manual dari dasbor. Tugas Admin di sini adalah membaca pesan tersebut, membalasnya via WhatsApp/Email, dan menambahkan Catatan (_Notes_) atas hasil percakapan tersebut.
+2. **Quotation vs Sales Order**
+   - **Quotation (Penawaran):** Masih sebatas "tanya harga" dan negosiasi (belum pasti beli). Admin bisa merubah harga dan memberi diskon di tahap ini untuk diserahkan ke pelanggan dalam bentuk PDF.
+   - **Sales Order (SO):** Adalah Quotation yang sudah "Deal" dan disetujui. Saat SO diterbitkan, perusahaan sudah mengikat janji untuk menjual. Laba (secara kertas/akuntansi) sudah mulai dihitung di sini.
+3. **Kapan Stok Gudang Berkurang?**
+   Stok di gudang **TIDAK AKAN BERKURANG** saat SO dibuat, apalagi saat Inquiry. Stok fisik hanya akan otomatis terpotong **tepat di detik** Admin / Kasir menginput pembayaran (Payment) yang membuat status Invoice menjadi **`Lunas`**.
+
+---
+
 ## 📊 Flowchart Proses Penjualan
 
 ```mermaid
-graph TD;
+graph TD
     %% Node Definitions
-    START((Mulai)) --> INQ[1. Inquiry <br/> Pelanggan Bertanya]
-    
-    INQ --> Q[2. Quotation <br/> Buat Penawaran]
-    
-    Q --> Q_DEC{Setuju <br/> Harga?}
+    START(("Pelanggan<br>Kunjungi Web")) --> INQ["1. Inquiry<br>Isi Form di Website"]
+
+    INQ --> Q["2. Quotation<br>Admin Buat Penawaran"]
+
+    Q --> Q_DEC{"Setuju<br>Harga?"}
     Q_DEC -->|Tidak| Q_FAIL([Batal])
-    
-    Q_DEC -->|Ya| SO[3. Sales Order <br/> Pesanan Resmi]
-    
-    SO --> INV[4. Invoice <br/> Tagihan]
-    
-    INV --> PAY_DEC{Dibayar?}
-    PAY_DEC -->|Belum| INV_WAIT[Status: Belum Lunas <br/> *Stok Ditahan*]
+
+    Q_DEC -->|Ya| SO["3. Sales Order<br>Pesanan Resmi (Laba Tercatat)"]
+
+    SO --> INV["4. Invoice<br>Tagihan"]
+
+    INV --> PAY_DEC{"Dibayar?"}
+    PAY_DEC -->|Belum| INV_WAIT["Status: Belum Lunas<br><i>Stok Masih Ditahan</i>"]
     INV_WAIT -.-> PAY_DEC
-    
-    PAY_DEC -->|Lunas| INV_DONE[Status: Lunas]
-    
-    INV_DONE --> STOCK_DEC{Cek Stok}
-    STOCK_DEC -->|Stok Cukup| DELIVERY[5. Kirim Barang <br/> *Stok Berkurang*]
-    STOCK_DEC -->|Kurang| EDGE_CASE_STOCK[Edge Case: <br/> Peringatan!]
-    
-    EDGE_CASE_STOCK -.->|Lapor Gudang| PROCUREMENT(Alur Pembelian)
-    
-    DELIVERY --> END((Selesai))
+
+    PAY_DEC -->|Lunas| INV_DONE["Status: Lunas<br><i>Kas Masuk Tercatat</i>"]
+
+    INV_DONE --> STOCK_DEC{"Cek Stok"}
+    STOCK_DEC -->|Stok Cukup| DELIVERY["5. Kirim Barang<br><i>Stok Fisik Berkurang</i>"]
+    STOCK_DEC -->|Kurang| EDGE_CASE_STOCK["Edge Case:<br>Peringatan!"]
+
+    EDGE_CASE_STOCK -.->|Lapor Gudang| PROCUREMENT["Minta Tambah Stok ke Gudang"]
+
+    DELIVERY --> END(("Selesai"))
 
     %% Styling
     style INQ fill:#f9f,stroke:#333,stroke-width:2px
@@ -42,74 +54,67 @@ graph TD;
 
 ## 📝 Panduan Penggunaan Langkah-demi-Langkah (Step-by-Step)
 
-### Tahap 1: Membuat Inquiry (Pertanyaan Pelanggan)
-**Kapan digunakan:** Saat pelanggan menghubungi via WhatsApp/Telepon untuk menanyakan harga atau ketersediaan stok.
-1. Buka *Sidebar* sebelah kiri, klik menu **Penjualan**.
-2. Klik sub-menu **Inquiry**.
-3. Di pojok kanan atas, klik tombol **+ New Inquiry** (atau *Create Inquiry*).
-4. **Isi Formulir:**
-   - **Pelanggan:** Ketik dan cari nama pelanggan. (Jika pelanggan baru, Anda bisa membuat data pelanggan baru melalui menu *Master Data > Customers* terlebih dahulu).
-   - **Tanggal:** Biarkan terisi otomatis (hari ini).
-   - **Estimasi Kebutuhan:** (Opsional) Kapan kira-kira barang ini dibutuhkan.
-   - **Produk:** Klik tombol **Add Item** di bagian bawah, lalu pilih produk yang ditanyakan (Misal: Mata Bor 12mm), dan masukkan kuantitas (Qty) yang ditanyakan.
-   - **Catatan Tambahan:** Ketik pesan pelanggan, misalnya: "Minta tolong dicek apakah bisa dikirim besok?".
-5. Klik tombol **Create** (Simpan). Status dokumen kini adalah `Baru`.
+### Tahap 1: Merespons Inquiry (Pertanyaan Pelanggan)
+
+1. Buka _Sidebar_ sebelah kiri, klik menu **Penjualan > Inquiry**.
+2. Anda akan melihat daftar pertanyaan dari pelanggan di website. Klik salah satu yang berstatus `Baru`.
+3. Di dalam halamannya, klik tombol **Tandai Dibaca** agar rekan tim lain tahu pesan ini sedang Anda urus.
+4. Hubungi nomor/email pelanggan tersebut (di luar sistem). Tanyakan detail kebutuhan mereka.
+5. Sambil bernegosiasi, Anda bisa mengedit Inquiry (klik tombol pensil/Edit) dan mengetik hasil obrolan di kolom **Catatan Admin**.
 
 ### Tahap 2: Membuat Quotation (Penawaran Harga)
-**Kapan digunakan:** Jika pelanggan meminta surat penawaran harga resmi.
-1. Masih di halaman detail *Inquiry* yang baru Anda buat, Anda bisa menggunakan Action **Buat Quotation**, ATAU:
-2. Buka menu **Penjualan > Quotation**.
-3. Klik tombol **+ New Quotation**.
-4. **Isi Formulir:**
-   - Pilih *Inquiry* sebelumnya (jika ada) agar datanya tertarik otomatis.
-   - **Diskon:** Masukkan nominal diskon jika Anda ingin memberikan potongan harga (format angka langsung, bukan persen).
-   - **Pajak (PPN):** Jika ada pajak, masukkan nominal pajak.
-   - Pastikan rincian barang sudah benar dan harganya sesuai.
-5. Klik **Create**. Statusnya kini adalah `Draft`.
-6. Untuk mengirim PDF ke pelanggan: Klik nama Quotation di tabel, lalu klik tombol aksi **Print/Download PDF**. Kirim file tersebut via WhatsApp.
+
+**Kapan digunakan:** Pelanggan minta surat penawaran harga resmi (PDF).
+
+1. Di halaman _Inquiry_ tadi, klik tombol **Buat Quotation**. Sistem akan otomatis menarik data produk yang ditanyakan.
+2. **Isi Formulir Quotation:**
+   - **Diskon:** Masukkan nominal diskon jika Anda ingin memberikan potongan harga.
+   - **Pajak (PPN):** Masukkan pajak jika ada.
+   - Pastikan harga per unit sudah benar.
+3. Klik **Create**. Statusnya kini adalah `Draft`.
+4. Untuk mengirim PDF ke pelanggan: Klik nama Quotation di tabel, lalu klik tombol **Print/Download PDF**. Kirimkan via WhatsApp.
 
 ### Tahap 3: Meresmikan Pesanan (Sales Order)
+
 **Kapan digunakan:** Pelanggan membalas: "Oke, saya setuju, tolong diproses ya!".
+
 1. Buka menu **Penjualan > Quotation**.
-2. Cari dokumen *Quotation* yang sudah disetujui, lalu klik untuk melihat detailnya.
-3. Klik tombol aksi **Approve**. Status berubah menjadi `Approved`.
-4. Setelah itu, akan muncul tombol aksi baru bernama **Convert to Sales Order**. Klik tombol tersebut.
-5. Konfirmasi pesan *pop-up*. Sistem akan otomatis membuat data di tabel *Sales Order*.
-6. Buka menu **Penjualan > Sales Order**. Anda akan melihat SO baru berstatus `Draft`.
-7. Klik tombol aksi **Approve** pada SO tersebut. Pada titik ini, pesanan sudah resmi mengikat.
+2. Cari dokumen _Quotation_ yang sudah disetujui, klik untuk melihat detailnya.
+3. Klik tombol aksi **Approve** (Dokumen menjadi sah).
+4. Klik tombol **Convert to Sales Order**.
+5. Buka menu **Penjualan > Sales Order**. Anda akan melihat SO baru berstatus `Draft`.
+6. Klik tombol aksi **Approve** pada SO tersebut. Pada titik ini, laba perusahaan (Accrual Basis) sudah bertambah di dasbor Keuangan.
 
 ### Tahap 4: Menagih & Menerima Pembayaran (Invoice)
-**Kapan digunakan:** Saat barang siap dan Anda harus menagih pembayaran (atau jika kasir menerima transfer).
-1. Di halaman *Sales Order* yang sudah `Approved`, klik tombol **Buat Invoice**.
-2. Buka menu **Penjualan > Invoice** untuk melihat tagihannya.
-3. Kirim tagihan ke pelanggan menggunakan tombol **Kirim WA** (otomatis membuka WhatsApp Web).
-4. **Mencatat Pembayaran:**
-   - Klik nama/nomor Invoice untuk masuk ke halaman detail.
-   - Di bagian bawah, ada tabel **Payments (Pembayaran)**.
+
+1. Di halaman _Sales Order_ yang sudah `Approved`, klik tombol **Buat Invoice**.
+2. Buka menu **Penjualan > Invoice**. Kirim tagihan ke pelanggan menggunakan tombol **Kirim WA** (otomatis membuka WhatsApp Web).
+3. **Mencatat Uang Masuk:**
+   - Masuk ke detail Invoice, gulir ke bawah ke tabel **Payments (Pembayaran)**.
    - Klik **Create Payment**.
-   - Masukkan *Tanggal* pembayaran, *Nominal Uang* yang ditransfer, dan *Metode* (misal: Transfer Bank BCA).
-   - Upload *Bukti Transfer* pada kolom bukti (opsional tapi disarankan).
+   - Masukkan _Tanggal_ transfer, _Nominal Uang_, dan _Metode_ (misal: Bank BCA).
    - Klik **Save**.
-5. **EFEK SISTEM:** Jika total *Payment* sudah menyentuh (atau melebihi) total Invoice, status Invoice akan langsung berubah menjadi **`Lunas`**.
+4. Jika total _Payment_ sama/lebih dari tagihan, status Invoice berubah menjadi **`Lunas`**.
 
 ### Tahap 5: Pengiriman Barang (Otomatis)
-1. Perlu diketahui bahwa **Stok barang di gudang TIDAK AKAN berkurang** selama Invoice belum berstatus `Lunas`.
-2. Detik dimana Anda mencatat pembayaran hingga lunas, sistem secara otomatis langsung:
-   - Mencatatnya sebagai **Kas Masuk** di Laporan Keuangan.
-   - **Memotong stok fisik** di gudang yang terhubung.
-3. Anda (atau pihak gudang) tinggal mencetak Invoice/Surat Jalan dan memproses pengiriman fisik barang ke pelanggan.
+
+Detik dimana Invoice berubah status menjadi `Lunas`, sistem secara otomatis langsung:
+
+- Mencatatnya sebagai **Kas Masuk** di Laporan Arus Kas.
+- **Memotong stok fisik** di gudang yang terhubung.
+  Anda tinggal mencetak Invoice/Surat Jalan dan memproses pengiriman fisik barang ke pelanggan.
 
 ## ⚠️ Edge Cases (Kasus Khusus / Masalah Umum)
 
 - **Kasus 1: Pelanggan membatalkan pesanan di tengah jalan.**
-  - **Langkah UI:** Buka halaman Quotation atau Sales Order yang ingin dibatalkan. Klik ikon tiga titik (Actions) atau tombol di pojok kanan bernama **Batalkan (Cancel)**. Status akan berubah merah menjadi `Cancelled`. 
-  - *Catatan:* Jika sudah masuk Invoice dan dibatalkan, Invoice tersebut tidak bisa dibayar dan stok tidak akan terpotong.
+  - **Langkah UI:** Buka halaman Quotation atau Sales Order yang ingin dibatalkan. Klik tombol aksi **Batalkan (Cancel)**. Status akan berubah merah menjadi `Cancelled`.
 - **Kasus 2: Pelanggan mau bayar Lunas, tapi ternyata barang di gudang kosong.**
-  - **Apa yang terjadi:** Saat Anda mencoba klik "Save" pada form Pembayaran Invoice, sistem akan menolak dan memunculkan kotak notifikasi merah berbunyi: *"Stok produk X tidak mencukupi"*.
-  - **Solusi:** Anda harus berkoordinasi dengan Gudang untuk menambah stok terlebih dahulu (Membuka modul Pembelian). Anda tidak bisa melunasi Invoice sebelum ada stok.
+  - **Apa yang terjadi:** Saat Anda klik "Save" pada form Pembayaran Invoice, sistem akan memblokir dan memunculkan notifikasi merah: _"Stok produk X tidak mencukupi"_.
+  - **Solusi:** Anda harus berkoordinasi dengan Gudang untuk menambah stok (Modul Pembelian). Anda tidak bisa melunasi Invoice sebelum ada stok fisik di gudang.
 - **Kasus 3: Pembayaran secara dicicil (Termin).**
-  - **Langkah UI:** Buka halaman Invoice, buat Payment baru, dan masukkan nominal yang HANYA sebagian dari total (misal total Rp10jt, dibayar Rp5jt).
-  - **Efek:** Status Invoice akan menjadi `Sebagian` (Warna kuning). Stok belum akan dipotong hingga sisa pembayaran dilunasi di hari berikutnya.
+  - **Langkah UI:** Di form Payment, masukkan nominal yang _HANYA_ sebagian dari total tagihan.
+  - **Efek:** Status Invoice akan menjadi `Sebagian` (Kuning). Stok Gudang BELUM akan dipotong hingga sisa cicilan dilunasi 100%.
 
 ---
+
 **[Lanjut ke Modul Pembelian ➡️](2-Alur-Pembelian-Stok.md)**
