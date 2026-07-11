@@ -245,8 +245,6 @@
             .hero h1 { font-size: 2.5rem; } .nav-links { display: none; }
             .pricing-card.popular { transform: none; } .pricing-card.popular:hover { transform: translateY(-5px); }
         }
-    </style>
-
         /* Video Section */
         .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 800px; margin: 0 auto; border-radius: 16px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border: 1px solid var(--border-color); }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
@@ -262,25 +260,20 @@
         .doc-menu button:hover { background: #eef2ff; color: var(--primary-hover); }
         .doc-menu button.active { background: white; border-color: var(--primary); color: var(--primary); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
         
-        .docs-content { flex-grow: 1; padding: 3rem; overflow-y: auto; max-height: 800px; }
-        .docs-content h1 { font-size: 2rem; margin-bottom: 1.5rem; color: #1c1917; text-align: left; }
-        .docs-content h2 { font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem; color: #1c1917; text-align: left; }
-        .docs-content h2::after { display: none; }
-        .docs-content h3 { font-size: 1.25rem; margin-top: 1.5rem; margin-bottom: 0.75rem; color: #1c1917; text-align: left; }
-        .docs-content p { margin-bottom: 1rem; line-height: 1.7; text-align: left; }
-        .docs-content ul, .docs-content ol { margin-bottom: 1rem; padding-left: 1.5rem; text-align: left; }
-        .docs-content li { margin-bottom: 0.5rem; line-height: 1.6; text-align: left; }
-        .docs-content pre { background: #1c1917; color: #f8fafc; padding: 1rem; border-radius: 8px; overflow-x: auto; margin-bottom: 1.5rem; font-family: monospace; }
-        .docs-content code { font-family: monospace; background: #f1f5f9; padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9em; color: #ef4444; }
-        .docs-content blockquote { border-left: 4px solid var(--primary); padding-left: 1rem; color: var(--text-muted); font-style: italic; margin-bottom: 1.5rem; text-align: left; }
-        .docs-content hr { border: 0; height: 1px; background: var(--border-color); margin: 2rem 0; }
-        .docs-content .mermaid { margin: 2rem 0; display: flex; justify-content: center; }
+        .docs-content { flex-grow: 1; padding: 3rem; overflow-y: auto; max-height: 800px; display: flex; flex-direction: column; align-items: center; }
+        .docs-content h1, .docs-content h2, .docs-content h3 { color: #1c1917; text-align: center; margin-bottom: 1rem; }
+        .docs-content p { margin-bottom: 1rem; text-align: center; color: var(--text-muted); }
+        .docs-content .mermaid { margin: 2rem 0; width: 100%; display: flex; justify-content: center; }
+        .btn-download { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; background: var(--primary); color: white; text-decoration: none; border-radius: 999px; font-weight: 600; font-size: 1rem; transition: all 0.3s ease; box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.3); margin-top: 2rem; }
+        .btn-download:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4); color: white; }
         
         @media (max-width: 768px) {
             .docs-container { flex-direction: column; }
             .docs-sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border-color); }
             .docs-content { padding: 1.5rem; }
         }
+    </style>
+  
 
 </head>
 <body>
@@ -692,28 +685,48 @@
             
             let rawMd = docData[fileId] || 'Konten tidak ditemukan.';
             
-            // Temporary hack for mermaid code blocks so marked.js doesn't mess them up
-            let html = marked.parse(rawMd);
+            // Extract only the mermaid blocks and the title
+            let titleMatch = rawMd.match(/^# (.*)/);
+            let title = titleMatch ? `<h2>${titleMatch[1]}</h2><p>Tampilan flowchart alur kerja. Untuk panduan lengkap langkah-demi-langkah, silakan unduh dokumen panduannya.</p>` : '';
             
-            // Find mermaid blocks and convert them to div class="mermaid" for rendering
-            html = html.replace(/<pre><code class="language-mermaid">([\s\S]*?)<\/code><\/pre>/g, function(match, code) {
-                // Decode HTML entities that marked.js might have added inside the code block
-                let decoded = code.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
-                return `<div class="mermaid">${decoded}</div>`;
+            let html = title;
+            let hasMermaid = false;
+            
+            rawMd.replace(/```mermaid([\s\S]*?)```/g, function(match, code) {
+                hasMermaid = true;
+                let decoded = code.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+                html += `<div class="mermaid">${decoded}</div>`;
             });
+            
+            if (!hasMermaid) {
+                html += `<div style="text-align:center; padding: 2rem; color: #64748b;">
+                            <div style="font-size:3rem; margin-bottom:1rem;">📄</div>
+                            <p>Tidak ada flowchart untuk modul ini.</p>
+                         </div>`;
+            }
+            
+            // Add download button for the markdown file
+            // We create a Blob from the raw markdown and create a download link
+            let blob = new Blob([rawMd], { type: 'text/markdown' });
+            let url = URL.createObjectURL(blob);
+            html += `<a href="${url}" download="${fileId}" class="btn-download">
+                        📥 Download Dokumen Panduan Lengkap
+                     </a>`;
             
             docContent.innerHTML = html;
             
             // Re-run mermaid on new content
-            setTimeout(async () => {
-                try {
-                    await mermaid.run({
-                        querySelector: '.mermaid'
-                    });
-                } catch (e) {
-                    console.error("Mermaid error:", e);
-                }
-            }, 100);
+            if (hasMermaid) {
+                setTimeout(async () => {
+                    try {
+                        await mermaid.run({
+                            querySelector: '.mermaid'
+                        });
+                    } catch (e) {
+                        console.error("Mermaid error:", e);
+                    }
+                }, 100);
+            }
         }
         
         // Build menu
