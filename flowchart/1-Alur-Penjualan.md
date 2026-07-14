@@ -7,8 +7,8 @@ Proses Penjualan pada sistem ini didesain bertahap agar tidak ada pesanan fiktif
 1. **Inquiry BUKAN dibuat oleh Admin!**
    Inquiry adalah "Kotak Masuk" (Inbox) dari _Website Publik_. Saat ada calon pembeli melihat-lihat website CV Anda dan mengisi formulir "Hubungi Kami", datanya akan otomatis terkirim ke menu Inquiry di Admin Panel dengan status `Baru`. Admin tidak bisa membuat Inquiry secara manual dari dasbor. Tugas Admin di sini adalah membaca pesan tersebut, membalasnya via WhatsApp/Email, dan menambahkan Catatan (_Notes_) atas hasil percakapan tersebut.
 2. **Quotation vs Sales Order**
-   - **Quotation (Penawaran):** Masih sebatas "tanya harga" dan negosiasi (belum pasti beli). Admin bisa merubah harga dan memberi diskon di tahap ini untuk diserahkan ke pelanggan dalam bentuk PDF.
-   - **Sales Order (SO):** Adalah Quotation yang sudah "Deal" dan disetujui. Saat SO diterbitkan, perusahaan sudah mengikat janji untuk menjual. Laba (secara kertas/akuntansi) sudah mulai dihitung di sini.
+   - **Quotation (Penawaran):** Masih sebatas "tanya harga" dan negosiasi (belum pasti beli). Admin bisa menentukan Diskon, Ongkos Kirim, serta bernegosiasi secara resmi dengan mencatat Histori Revisi, Catatan Negosiasi, dan Status Negosiasi sebelum diserahkan ke pelanggan dalam bentuk PDF.
+   - **Sales Order (SO):** Adalah Quotation yang sudah "Deal" dan disetujui. SO memiliki fitur **Approval Threshold** (Batas Persetujuan) dan pengecekan **Credit Limit** (Batas Piutang). Jika SO melebihi batas yang diatur, SO akan berstatus `Pending Approval` dan butuh persetujuan khusus. Saat SO diterbitkan secara sah, perusahaan sudah mengikat janji untuk menjual.
 3. **Kapan Stok Gudang Berkurang?**
    Stok di gudang **TIDAK AKAN BERKURANG** saat SO dibuat, apalagi saat Inquiry. Stok fisik hanya akan otomatis terpotong **tepat di detik** Admin / Kasir menginput pembayaran (Payment) yang membuat status Invoice menjadi **`Lunas`**.
 
@@ -40,11 +40,17 @@ graph TD
     INQ --> Q["2. Quotation<br>Admin Buat Penawaran"]
 
     Q --> Q_DEC{"Setuju<br>Harga?"}
+    Q_DEC -->|Nego| Q["Revisi Quotation<br>(Catat Nego)"]
     Q_DEC -->|Tidak| Q_FAIL([Batal])
 
-    Q_DEC -->|Ya| SO["3. Sales Order<br>Pesanan Resmi (Laba Tercatat)"]
+    Q_DEC -->|Deal| SO["3. Sales Order<br>Pesanan Resmi"]
+    
+    SO --> LIMIT_DEC{"Cek Limit &<br>Threshold?"}
+    LIMIT_DEC -->|Melebihi| PEND_SO["Pending Approval<br><i>Tunggu Pimpinan</i>"]
+    PEND_SO -.->|Di-Approve| LIMIT_DEC
+    LIMIT_DEC -->|Aman| APV_SO["SO Disetujui<br>(Laba Tercatat)"]
 
-    SO --> INV["4. Invoice<br>Tagihan"]
+    APV_SO --> INV["4. Invoice<br>Tagihan dengan Termin"]
 
     INV --> PAY_DEC{"Dibayar?"}
     PAY_DEC -->|Belum| INV_WAIT["Status: Belum Lunas<br><i>Stok Masih Ditahan</i>"]
@@ -84,11 +90,11 @@ graph TD
 
 1. Di halaman _Inquiry_ tadi, klik tombol **Buat Quotation**. Sistem akan otomatis menarik data produk yang ditanyakan.
 2. **Isi Formulir Quotation:**
-   - **Diskon:** Masukkan nominal diskon jika Anda ingin memberikan potongan harga.
-   - **Pajak (PPN):** Masukkan pajak jika ada.
+   - **Diskon & Ongkos Kirim:** Masukkan nominal potongan atau biaya kirim tambahan jika ada. Pajak akan dikalkulasi otomatis sesuai profil CV (UMKM/Normal).
    - Pastikan harga per unit sudah benar.
 3. Klik **Create**. Statusnya kini adalah `Draft`.
-4. Untuk mengirim PDF ke pelanggan: Klik nama Quotation di tabel, lalu klik tombol **Print/Download PDF**. Kirimkan via WhatsApp.
+4. **Negosiasi & Revisi:** Jika pelanggan menawar, Anda bisa mengedit Quotation, mengubah `Status Negosiasi` (misal: "Nego Harga"), menambahkan `Revisi Ke-`, dan mencatat `Target Harga Customer`. 
+5. Untuk mengirim PDF ke pelanggan: Klik nama Quotation di tabel, lalu klik tombol **Print/Download PDF**. Kirimkan via WhatsApp.
 
 ### Tahap 3: Meresmikan Pesanan (Sales Order)
 
@@ -96,16 +102,20 @@ graph TD
 
 1. Buka menu **Penjualan > Quotation**.
 2. Cari dokumen _Quotation_ yang sudah disetujui, klik untuk melihat detailnya.
-3. Klik tombol aksi **Approve** (Dokumen menjadi sah).
+3. Klik tombol aksi **Approve** (Dokumen Quotation menjadi sah karena sudah Deal).
 4. Klik tombol **Convert to Sales Order**.
-5. Buka menu **Penjualan > Sales Order**. Anda akan melihat SO baru berstatus `Draft`.
-6. Klik tombol aksi **Approve** pada SO tersebut. Pada titik ini, laba perusahaan (Accrual Basis) sudah bertambah di dasbor Keuangan.
+5. Buka menu **Penjualan > Sales Order**. Anda akan melihat SO baru berstatus `Draft` atau `Pending`.
+6. **Validasi Credit Limit & Threshold (Otomatis):**
+   - Jika nilai SO melebihi batas wajar persetujuan (`SO Approval Threshold`), SO akan terkunci dalam status `Pending` hingga Pimpinan login dan mengklik tombol **Approve**.
+   - Jika nilai SO digabung dengan piutang lama pelanggan tersebut melebihi batas `Credit Limit`, sistem akan menolak pembuatan SO sama sekali demi keamanan arus kas.
+7. Setelah SO berstatus `Approved`, laba perusahaan (Accrual Basis) sudah bertambah di dasbor Keuangan.
 
 ### Tahap 4: Menagih & Menerima Pembayaran (Invoice)
 
-1. Di halaman _Sales Order_ yang sudah `Approved`, klik tombol **Buat Invoice**.
-2. Buka menu **Penjualan > Invoice**. Kirim tagihan ke pelanggan menggunakan tombol **Kirim WA** (otomatis membuka WhatsApp Web).
-3. **Mencatat Uang Masuk:**
+1. Di halaman _Sales Order_ yang sudah `Approved`, klik tombol **Buat Invoice**. Anda juga bisa membuat tagihan parsial (Termin).
+2. Tentukan **Payment Term (Termin Pembayaran)**, misalnya "Net 30". Sistem otomatis akan menetapkan *Tanggal Jatuh Tempo*.
+3. Buka menu **Penjualan > Invoice**. Kirim tagihan ke pelanggan menggunakan tombol **Kirim WA** (otomatis membuka WhatsApp Web).
+4. **Mencatat Uang Masuk:**
    - Masuk ke detail Invoice, gulir ke bawah ke tabel **Payments (Pembayaran)**.
    - Klik **Create Payment**.
    - Masukkan _Tanggal_ transfer, _Nominal Uang_, dan _Metode_ (misal: Bank BCA).

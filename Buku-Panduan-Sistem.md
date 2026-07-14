@@ -16,7 +16,10 @@ Berikut adalah modul proses bisnis utama beserta tata cara pengerjaannya. Silaka
    Pelajari prosedur yang tepat ketika stok di Gudang habis. Mulai dari mengajukan permohonan pengadaan (*Procurement*), meresmikan ke Supplier (*Purchase Order*), hingga mencatat tagihan/Hutang Supplier.
 
 3. **[Alur Laporan Keuangan & Bagi Hasil](flowchart/3-Alur-Keuangan-Bagi-Hasil.md)**
-   Pelajari cara membaca kondisi kesehatan perusahaan di *Financial Report Center*. Modul ini juga akan menjelaskan bagaimana keuntungan bulanan dibagi kepada para pemodal/sekutu.
+   Pelajari cara membaca kondisi kesehatan perusahaan di *Financial Report Center*. Modul ini juga akan menjelaskan bagaimana keuntungan bulanan dibagi kepada para pemodal/sekutu, serta penarikan dana Prive.
+
+4. **[Alur Manajemen Dokumen (DMS)](flowchart/4-Alur-Manajemen-Dokumen.md)**
+   Pelajari cara mengarsipkan dokumen legal perusahaan, mengatur versi pembaruan dokumen, dan menjaga keamanan berkas penting perusahaan secara digital.
 
 ---
 
@@ -28,15 +31,21 @@ Sebelum masuk ke detail, ada beberapa "aturan main" (*business logic*) yang tert
 - **Barang tidak bisa dijual jika stok tidak mencukupi**. Sistem akan memblokir pembuatan *Invoice* jika *Quantity* melebihi stok yang ada di gudang yang dipilih.
 - **Setiap Pergerakan Dilacak**. Menambah stok lewat PO, atau mengurangi stok karena penjualan, semuanya akan otomatis masuk ke tabel **Riwayat Stok (Stock Movement)**. Anda bisa mengecek di halaman detail produk, lalu tab "Mutasi Stok".
 
-### B. Konsep Hak Akses (Roles & Permissions)
+### B. Pengamanan Finansial (Limit & Threshold)
+Sistem dirancang untuk melindungi arus kas dan permodalan Anda dengan aturan otomatis:
+- **Credit Limit Pelanggan:** Anda tidak bisa memproses pesanan baru jika pelanggan bersangkutan masih memiliki tunggakan/piutang yang melampaui batas batas kredit yang sudah ditetapkan di Master Data.
+- **Sales Approval Threshold:** Transaksi dengan nilai terlalu besar akan ditahan otomatis oleh sistem (berstatus *Pending*) dan mewajibkan adanya verifikasi/Approve langsung dari Direktur atau Pemilik sebelum bisa menjadi Sales Order.
+
+### C. Konsep Hak Akses (Roles & Permissions)
 - Sistem memiliki manajemen akses yang ketat. Tidak semua menu bisa dilihat oleh sembarang staf.
 - **Admin Gudang** biasanya hanya bisa melihat *Procurement* dan *Purchase Order*.
 - **Admin Sales** hanya bisa mengelola *Quotation* dan *Sales Order*.
-- **Manajer / Owner** bisa melihat laporan laba rugi dan menyetujui dokumen penting.
+- **Manajer / Owner** bisa melihat laporan laba rugi, menyetujui dokumen penting, dan mengakses DMS.
 
-### C. Pentingnya Status Dokumen
+### D. Pentingnya Status Dokumen
 Setiap dokumen transaksi memiliki **Status**. Perhatikan perpindahan status ini:
 - `Draft`: Masih bisa diedit bebas, belum memiliki efek hukum/finansial di sistem.
+- `Pending Approval`: Sedang ditahan, menunggu atasan menyetujui.
 - `Approved`: Sudah disahkan atasan, tidak bisa diedit sembarangan lagi.
 - `Lunas` / `Received`: Transaksi sudah final, stok sudah berpindah, dan uang sudah berpindah.
 

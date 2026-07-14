@@ -7,8 +7,11 @@ Modul ini adalah pusat muara dari seluruh transaksi yang terjadi di Modul Penjua
 1. **Perbedaan Laba Rugi (Accrual) vs Arus Kas (Cash Basis)**
    - **Laba Rugi (Kinerja Bisnis):** Dihitung berdasarkan *komitmen*. Begitu Sales Order (SO) di-Approve, sistem menganggap Anda sudah mendapat penjualan, meskipun pelanggannya **belum bayar**. Ini berguna untuk melihat potensi bisnis (apakah laku atau tidak).
    - **Arus Kas (Kesehatan Tunai):** Dihitung berdasarkan *uang tunai riil*. Biarpun SO-nya miliaran, tapi kalau Invoicenya belum ada yang ditransfer (Lunas) oleh pelanggan, maka Kas Masuk Anda tetap Rp0. Ini krusial agar CV tidak kehabisan uang tunai untuk bayar supplier.
-2. **Mengapa Harus Ada Bagi Hasil (Profit Distribution)?**
-   Badan usaha berbentuk CV biasanya modalnya disetor oleh beberapa pemodal (Sekutu). Oleh karena itu, keuntungan bersih di akhir pembukuan harus dibagikan sesuai dengan persentase (porsi saham) yang disetor oleh masing-masing sekutu, agar adil dan transparan.
+2. **Kalkulasi Pajak (Otomatis)**
+   - Perusahaan bisa dikonfigurasi melalui **Pengaturan Pajak Perusahaan (Company Tax Config)**. Sistem membedakan apakah CV Anda berstatus PKP (memungut PPN 11%) atau Non-PKP, serta apakah menggunakan tarif UMKM (0,5%) atau PPh Badan Normal (22%).
+3. **Mengapa Harus Ada Bagi Hasil (Profit Distribution) & Prive?**
+   - Badan usaha berbentuk CV biasanya modalnya disetor oleh beberapa pemodal (Sekutu). Keuntungan bersih di akhir pembukuan dibagikan sesuai dengan persentase porsi saham.
+   - **Prive:** Jika pemilik (Sekutu) ingin menarik uang di pertengahan bulan untuk keperluan pribadi, itu dicatat sebagai *Prive Withdrawal*. Prive BUKAN beban/expense (tidak memotong Laba Rugi), melainkan langsung memotong *Ekuitas* (Modal) perusahaan.
 
 ---
 
@@ -58,17 +61,16 @@ graph TD
 
 ## 📝 Panduan Penggunaan Langkah-demi-Langkah (Step-by-Step)
 
-### Tahap 1: Pencatatan Pengeluaran Operasional Tambahan (Expense)
-**Kapan digunakan:** Selain berbelanja barang ke supplier, perusahaan pasti memiliki biaya harian seperti Listrik, Gaji Karyawan, Transport Sales, Kopi, Pajak, dll. Anda harus mencatatnya secara manual.
-1. Buka *Sidebar* kiri, klik menu **Keuangan > Pengeluaran**.
-2. Klik tombol **+ New Expense**.
-3. **Isi Formulir:**
-   - **Kategori:** Pilih jenis pengeluaran (misal: Operasional, Gaji, Utilitas).
-   - **Tanggal:** Pilih tanggal pengeluaran terjadi.
-   - **Jumlah:** Masukkan nominal uang yang keluar (misal: Rp5.000.000).
-   - **Deskripsi:** Tulis rinciannya, contoh: "Gaji 2 staff gudang bulan Juli".
-   - **Bukti Struk:** Upload foto struk / nota pembayaran (opsional).
-4. Klik **Create** (Simpan). Uang kas perusahaan otomatis berkurang.
+### Tahap 1: Pencatatan Pengeluaran Operasional (Expense) & Tarikan Prive
+**Kapan digunakan:** Selain berbelanja barang ke supplier, perusahaan pasti memiliki biaya harian (Expense) seperti Listrik, Gaji Karyawan, Transport Sales, dll. Selain itu, ada *Prive* jika pemilik mengambil uang.
+- **Untuk Expense (Biaya Operasional):**
+  1. Buka *Sidebar* kiri, klik menu **Keuangan > Pengeluaran**.
+  2. Klik tombol **+ New Expense**.
+  3. Isi kategori, nominal, dan tanggal, lalu klik **Create**. Uang kas perusahaan akan berkurang dan Laba Bersih akan terpotong.
+- **Untuk Prive (Penarikan Pemilik):**
+  1. Buka menu **Keuangan > Penarikan Prive**.
+  2. Klik **+ New Prive Withdrawal**. Pilih nama Sekutu (Pemodal) dan nominal yang ditarik.
+  3. Sistem akan memvalidasi apakah jumlah tarikan melebihi "Batas Prive per Bulan" yang sudah ditetapkan. Prive **TIDAK** memotong Laba Bersih, tetapi langsung mengurangi Kas dan Modal.
 
 ### Tahap 2: Membaca Dasbor Laporan Keuangan
 **Kapan digunakan:** Rapat bulanan manajer atau pemegang saham.
