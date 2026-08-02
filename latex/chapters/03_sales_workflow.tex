@@ -1,0 +1,67 @@
+\chapter{Alur Kerja Penjualan (Sales Workflow)}
+
+Modul ini adalah jantung operasional perusahaan, memuat siklus lengkap mulai dari prospek hingga pengiriman barang. Siklus ini sangat terstruktur: \textit{Inquiry} $\rightarrow$ \textit{Quotation} $\rightarrow$ \textit{Sales Order} $\rightarrow$ \textit{Invoice} $\rightarrow$ \textit{Delivery Order}.
+
+\section{Inquiry (Pemesanan/Pertanyaan)}
+Permintaan awal sering kali datang dari \textit{website} eksternal dan terekam di sini.
+
+\subsection{Langkah Menindaklanjuti Inquiry}
+\begin{enumerate}
+    \item Buka menu \textbf{Inquiries}.
+    \item Pilih data pelanggan yang berstatus \textbf{Pending}.
+    \item Hubungi pelanggan via WhatsApp. Jika sepakat, staf (Admin) menekan tombol \textbf{Buat Quotation}.
+\end{enumerate}
+
+\section{Quotation (Penawaran Harga)}
+Sistem memfasilitasi pembuatan penawaran harga resmi dengan perhitungan diskon dan PPN (11\%).
+
+\subsection{Membuat Quotation Baru}
+\begin{enumerate}
+    \item Masuk ke menu \textbf{Quotations} lalu klik \textbf{New Quotation}.
+    \item Pilih \textbf{Customer} dari \textit{dropdown}.
+    \item Pada tabel \textit{Items}, klik \textbf{Add item} dan pilih produk yang akan ditawarkan.
+    \item Sesuaikan \textit{Quantity} dan berikan \textit{Diskon} (jika ada). Subtotal akan dihitung secara otomatis.
+    \item Klik \textbf{Create}. Dokumen akan berstatus \textit{Draft}.
+    \item Admin dapat mengklik tombol \textbf{Print PDF} untuk mengunduh penawaran resmi.
+\end{enumerate}
+
+\section{Sales Order \& Invoice}
+Jika penawaran disetujui, Quotation dikonversi menjadi \textit{Sales Order} (SO). SO harus di-approve sebelum dapat diubah menjadi tagihan (\textit{Invoice}).
+
+\subsection{Skenario Persetujuan Owner \& Tagihan}
+\begin{enumerate}
+    \item Admin meng-klik aksi \textbf{Konversi ke Sales Order} pada halaman \textit{Quotation}.
+    \item Dokumen SO baru terbentuk dengan status \textit{Pending}.
+    \item Pengguna dengan peran \textbf{Owner} membuka SO tersebut dan mengklik tombol \textbf{Approve}.
+    \item Setelah disetujui, tombol \textbf{Buat Invoice} akan muncul.
+    \item Admin mengklik tombol tersebut untuk menerbitkan tagihan.
+    \item Tagihan secara otomatis memiliki \textit{ULID} enkripsi untuk tautan unduhan PDF \textit{Secure Link}.
+\end{enumerate}
+
+\section{Pembayaran Invoice (Kasir)}
+\begin{enumerate}
+    \item \textbf{Kasir} masuk ke menu \textbf{Invoices}.
+    \item Kasir membuka Invoice berstatus \textit{Belum Bayar} atau \textit{Sebagian}.
+    \item Kasir mengklik tombol aksi berwarna hijau \textbf{Catat Pembayaran}.
+    \item Sistem akan menampilkan *Modal form*. Masukkan nominal transfer pada *field* \textbf{Jumlah}.
+    \item \textit{Sistem Mencegah Kesalahan:} Anda tidak dapat menginput jumlah melebihi nominal di \textbf{Sisa Bayar} berkat validasi \textit{maxValue}.
+    \item Setelah sukses, status berubah menjadi \textit{Lunas} jika sisa tagihan mencapai nol.
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{placeholder_catat_pembayaran.png}
+    \caption{Pop-up Form Catat Pembayaran dengan Validasi Maksimal}
+    \label{figure:catat_pembayaran}
+\end{figure}
+
+\section{Delivery Order (Surat Jalan)}
+Setelah barang disiapkan atau invoice dibayar (bergantung kebijakan perusahaan), bagian Gudang mengeluarkan Surat Jalan. Fitur ini diawasi ketat oleh peran \textbf{Gudang}.
+
+\subsection{Eksekusi Surat Jalan}
+\begin{enumerate}
+    \item Bagian \textbf{Gudang} mengklik menu \textbf{Delivery Orders} $>$ \textbf{New Delivery Order}.
+    \item Memilih \textbf{Sales Order} tujuan, \textbf{Gudang Asal}, dan \textbf{Supir}.
+    \item Memasukkan nomor polisi kendaraan.
+    \item Setelah di-Simpan, Surat Jalan PDF siap dicetak dan stok gudang otomatis terpotong.
+\end{enumerate}

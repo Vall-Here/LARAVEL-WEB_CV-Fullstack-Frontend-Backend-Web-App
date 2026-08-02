@@ -1,0 +1,44 @@
+\chapter{Modul Finansial \& Korporasi}
+
+Modul finansial mencakup pengaturan uang operasional perusahaan, mulai dari pengeluaran (*Expense*), modal pemegang saham (*Sekutu*), penarikan dana (*Prive*), hingga penutupan buku akhir tahun (*Profit Distribution*).
+
+\section{Pengeluaran (Expense)}
+Digunakan untuk mencatat biaya operasional seperti listrik, air, dan gaji karyawan.
+\begin{enumerate}
+    \item Buka menu \textbf{Expenses} $>$ \textbf{New Expense}.
+    \item Masukkan \textbf{Keterangan} dan \textbf{Nominal}.
+    \item Unggah \textbf{Bukti Struk/Kwitansi}. (Catatan: File disimpan secara rahasia dan hanya bisa diakses via rute internal).
+    \item Simpan data.
+\end{enumerate}
+
+\section{Manajemen Sekutu \& Penarikan Prive}
+CV memiliki sistem kepemilikan modal yang dapat ditarik (*Prive*) oleh para Sekutu (Investor/Pemilik).
+
+\subsection{Alur Permohonan Prive (Bebas Defisit)}
+\begin{enumerate}
+    \item Buka menu \textbf{Prive Withdrawals} lalu klik \textbf{New Prive Withdrawal}.
+    \item Pilih \textbf{Sekutu} dan masukkan \textbf{Nominal} penarikan.
+    \item \textbf{Validasi Keamanan Modal}: Sistem otomatis akan menolak jika angka nominal penarikan melebihi \textbf{Total Modal Setor} dari Sekutu tersebut. Hal ini menjaga agar saldo modal tidak minus/defisit.
+    \item \textbf{Status Approval}: Permohonan baru berstatus \textit{Pending}. Harus di-\textit{Approve} oleh **Owner** sebelum dana sah dicairkan.
+    \item Transaksi dilindungi dengan \textit{Atomic Lock} untuk menahan manipulasi double-klik.
+\end{enumerate}
+
+\section{Profit Distribution (Tutup Buku)}
+Pada penghujung tahun finansial, perusahaan melakukan Tutup Buku untuk mendistribusikan keuntungan (Laba).
+
+\subsection{Distribusi Dividen Otomatis}
+Sistem dilengkapi dengan fitur komputasi distribusi laba:
+\begin{enumerate}
+    \item Buka menu \textbf{Profit Distributions}.
+    \item Klik \textbf{New Profit Distribution}.
+    \item Tentukan \textbf{Bulan}, \textbf{Tahun}, dan **Total Laba** (Net Profit) yang akan dibagikan.
+    \item Saat dokumen dibuat, sistem secara dinamis akan membagi laba kepada seluruh \textbf{Sekutu} berdasarkan \textbf{Persentase Saham (\%)} kepemilikan masing-masing sekutu di sistem.
+    \item Laba yang terdistribusi otomatis ditambahkan ke dalam profil modal masing-masing sekutu tanpa intervensi manual.
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{placeholder_profit_dist.png}
+    \caption{Tabel Rincian Profit Distribution kepada Sekutu}
+    \label{figure:profit_distribution}
+\end{figure}

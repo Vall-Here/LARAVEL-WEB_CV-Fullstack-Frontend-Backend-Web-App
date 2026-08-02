@@ -1,0 +1,39 @@
+\chapter{Troubleshooting \& Error Handling}
+
+Bab ini merangkum penanganan kendala umum dan penjelasan dari pesan \textit{error} (peringatan) yang mungkin timbul akibat perlindungan sistem tingkat lanjut.
+
+\section{Pesan Peringatan: Optimistic Locking}
+\textbf{Kasus:} Saat Admin menekan tombol \textbf{Save} di halaman Edit \textit{Sales Order} atau \textit{Invoice}, lalu memodifikasinya kembali dan menyimpan tanpa *refresh* halaman, terkadang muncul peringatan: \textit{"Data telah diubah oleh pengguna lain"}.
+
+\textbf{Alasan \& Solusi:}
+Sistem Anda menerapkan perlindungan tabrakan data (Optimistic Locking). Sebelumnya hal ini sering muncul sebagai \textit{false-positive}. Saat ini sistem sudah sinkron secara otomatis. Namun, jika pesan ini muncul:
+\begin{enumerate}
+    \item Itu berarti ada staf lain yang kebetulan sedang menyunting dokumen yang sama dari komputer berbeda dan menekan \textbf{Save} lebih dulu.
+    \item \textbf{Solusi:} Silakan \textit{Refresh} ($F5$) halaman *browser* Anda untuk memuat pembaruan terbaru dari staf tersebut, sebelum menyimpan data Anda sendiri.
+\end{enumerate}
+
+\section{Error 404 pada File Lampiran (Private Files)}
+\textbf{Kasus:} Anda mengeklik tombol hijau \textbf{Lihat Lampiran} di tabel \textit{Expense} atau \textit{Invoice}, tetapi *browser* memunculkan halaman kosong \textbf{404 Not Found}.
+
+\textbf{Alasan \& Solusi:}
+Aplikasi ini mencegah \textit{Insecure Direct Object Reference} (IDOR) dengan tidak mengekspos lampiran rahasia ke direktori publik.
+\begin{enumerate}
+    \item Jika terjadi *Error 404* pada tombol lama (sisa data uji coba), ini berarti *file* fisik tersebut belum pernah tersimpan atau telah terhapus dari server.
+    \item \textbf{Solusi:} \textit{Upload} ulang file pada dokumen tersebut. \textit{File} akan masuk ke disk internal (\texttt{local}) dan URL akan diubah menjadi rute pengamanan \texttt{/private-file/path/name}. Hanya pengguna \textit{Login} (dengan Role yang tepat) yang dapat mengunduhnya.
+\end{enumerate}
+
+\section{Validasi Input Gagal (Server Exception 500)}
+\textbf{Kasus:} Muncul kotak \textit{error} merah di ujung layar bertuliskan masalah server.
+
+\textbf{Alasan \& Solusi:}
+\begin{enumerate}
+    \item Sebagian besar formulir (seperti Form Pembayaran) sudah dibekukan dengan validasi visual (misalnya, angka tak bisa diketik lebih dari Sisa Bayar).
+    \item Apabila Anda secara paksa menembus validasi *browser*, server otomatis mendeteksi ancaman dan membatalkan *Database Transaction*. 
+    \item \textbf{Solusi:} Ikuti petunjuk garis merah yang muncul pada kolom isian (*Field*) bersangkutan.
+\end{enumerate}
+
+\section{Catatan API Publik \& Kredensial SPA}
+Jika aplikasi \textit{Frontend} (*Website* / Aplikasi HP) yang dihubungkan dengan API internal mengalami kegagalan Autentikasi (selalu kembali ke halaman Login):
+\begin{itemize}
+    \item Pastikan konfigurasi CSRF/Sanctum dan \texttt{statefulApi} tetap menyala pada \textit{middleware}. Sistem ini sudah didesain khusus agar rute Katalog Produk (\texttt{/api/products}) terbuka untuk publik (pengunjung anonim), sementara dokumen internal wajib memberikan \textit{cookie auth}.
+\end{itemize}

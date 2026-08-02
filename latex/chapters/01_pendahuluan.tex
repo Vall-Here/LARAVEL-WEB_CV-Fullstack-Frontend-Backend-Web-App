@@ -1,0 +1,52 @@
+\chapter{Pendahuluan \& Matriks Peran}
+
+Sistem Informasi Manajemen Bisnis dan Operasional CV ini dibangun menggunakan arsitektur Laravel dan Filament. Sistem ini menangani seluruh siklus hidup operasional dari hulu ke hilir, mulai dari pengelolaan Master Data, proses \textit{Procurement} (Pengadaan), Siklus \textit{Sales Workflow}, Manajemen Gudang, hingga Distribusi Keuntungan (Profit Distribution).
+
+\section{Konsep Dasar Sistem}
+Sistem ini berfokus pada:
+\begin{itemize}
+    \item \textbf{Konsistensi Data}: Menggunakan mekanisme \textit{Atomic Lock} untuk mencegah konflik manipulasi saldo dan stok ganda.
+    \item \textbf{Keamanan}: Proteksi tingkat tinggi terhadap \textit{Insecure Direct Object Reference} (IDOR) dengan menggunakan ULID, serta \textit{Secure File Handling} untuk dokumen rahasia.
+    \item \textbf{Pemisahan Peran (RBAC)}: Sistem otorisasi ketat menggunakan spatie/laravel-permission untuk mengontrol \textit{widget}, menu, dan tombol \textit{action} secara granular.
+\end{itemize}
+
+\section{Matriks Peran (Role Matrix)}
+
+Setiap pengguna yang masuk ke dalam sistem akan diberikan minimal satu peran (\textit{Role}). Peran ini menentukan visibilitas dan aksi apa yang diizinkan (Create, Read, Update, Delete, Print, dsb).
+
+\begin{table}[H]
+    \centering
+    \begin{tabularx}{\textwidth}{|l|X|}
+        \hline
+        \textbf{Peran (Role)} & \textbf{Deskripsi \& Hak Akses} \\
+        \hline
+        \textbf{Super Admin} & Memiliki akses tertinggi (Bypass). Dapat melihat, memodifikasi, dan menghapus semua data di sistem termasuk memanajemen \textit{User}, hak akses, dan \textit{Log Activity}. \\
+        \hline
+        \textbf{Owner} & Pemilik perusahaan (Sekutu). Dapat melihat seluruh dasbor analitik, laporan penjualan, melakukan \textit{Approve/Reject} pada Dokumen Keuangan, serta menyetujui \textit{Prive Withdrawal} (Penarikan Prive). \\
+        \hline
+        \textbf{Admin} & Mengendalikan siklus operasional harian. Berhak membuat \textit{Quotation}, \textit{Sales Order}, \textit{Invoice}, dan mengelola Master Data. Tidak bisa melihat laporan keuangan agregat perusahaan. \\
+        \hline
+        \textbf{Kasir} & Berfokus pada penerimaan pembayaran. Dapat melihat \textit{Invoice} untuk mengeksekusi aksi \textbf{Catat Pembayaran}. \\
+        \hline
+        \textbf{Gudang} & Bertanggung jawab atas stok fisik. Hanya dapat melihat modul \textit{Delivery Order}, \textit{Procurement}, dan \textit{Stock Movement}. Berhak mengeluarkan Surat Jalan dan menyesuaikan stok. \\
+        \hline
+    \end{tabularx}
+    \caption{Matriks Peran dan Hak Akses Pengguna}
+    \label{table:role_matrix}
+\end{table}
+
+\section{Struktur Antarmuka Pengguna (UI)}
+
+Secara umum, halaman antarmuka pengguna dibagi menjadi:
+\begin{enumerate}
+    \item \textbf{Sidebar Navigasi (Kiri)}: Menampilkan modul-modul sistem berdasarkan Hak Akses (\textit{Role}).
+    \item \textbf{Dasbor Utama (Tengah)}: Menampilkan grafik statistik, atau tabel daftar data (Resource).
+    \item \textbf{Action Buttons (Kanan Atas \& Baris Tabel)}: Tombol seperti \textbf{Create}, \textbf{Edit}, \textbf{Delete}, \textbf{Approve}, \textbf{Print PDF}, atau \textbf{Catat Pembayaran}.
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{placeholder_dashboard_utama.png}
+    \caption{Dasbor Utama Sistem}
+    \label{figure:dashboard_utama}
+\end{figure}

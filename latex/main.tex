@@ -1,0 +1,80 @@
+﻿\documentclass[11pt,a4paper,oneside]{book}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[indonesian]{babel}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{tocbibind}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{listings}
+
+% Colors
+\definecolor{primarycolor}{RGB}{0, 102, 204}
+\definecolor{secondarycolor}{RGB}{51, 51, 51}
+
+% Hyperref setup
+\hypersetup{
+    colorlinks=true,
+    linkcolor=primarycolor,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Enterprise Manual Book: Fullstack CV},
+    pdfpagemode=FullScreen,
+}
+
+% Chapter Formatting
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries\color{primarycolor}}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{-50pt}{40pt}
+
+% Section Formatting
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{secondarycolor}}{\thesection}{1em}{}
+
+% Header and Footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\leftmark}
+\fancyhead[R]{Fullstack CV Enterprise}
+\fancyfoot[C]{\thepage}
+
+\begin{document}
+
+\frontmatter
+
+\begin{titlepage}
+    \centering
+    \vspace*{5cm}
+    {\Huge \textbf{\color{primarycolor} Enterprise Manual Book}}\\[1.5cm]
+    {\LARGE \textbf{Sistem Informasi Bisnis \& Operasional CV}}\\[2cm]
+    {\Large Panduan Pengguna \& Arsitektur Sistem}\\[3cm]
+    {\large Versi 1.0}\\[1cm]
+    {\large \today}\\[2cm]
+    \vfill
+    {\large Disusun untuk Penggunaan Internal Perusahaan}
+\end{titlepage}
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\mainmatter
+
+\include{chapters/01_pendahuluan}
+\include{chapters/02_master_data}
+\include{chapters/03_sales_workflow}
+\include{chapters/04_inventory_procurement}
+\include{chapters/05_finance_corporate}
+\include{chapters/06_troubleshooting}
+
+\end{document}

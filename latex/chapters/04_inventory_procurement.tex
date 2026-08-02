@@ -1,0 +1,32 @@
+\chapter{Gudang \& Pengadaan (Inventory \& Procurement)}
+
+Modul ini bertanggung jawab untuk menjaga keseimbangan antara keluar masuknya barang, memastikan tidak ada \textit{overselling} (stok negatif), serta mencatat pengadaan dari \textit{Supplier}.
+
+\section{Procurement \& Purchase Order (Pengadaan)}
+
+Untuk menambah stok barang yang kosong, Admin atau staf terkait membuat rencana pengadaan.
+
+\subsection{Skenario Pembelian Barang dari Supplier}
+\begin{enumerate}
+    \item Buka menu \textbf{Purchase Orders}.
+    \item Klik \textbf{New Purchase Order}.
+    \item Pilih \textbf{Supplier} (misal: "PT Supplier Bahan Baku").
+    \item Tentukan produk dan jumlah (Qty) yang hendak dibeli.
+    \item Simpan form tersebut. Status awal adalah \textit{Pending}.
+    \item Setelah barang tiba di lokasi fisik, pengguna dengan peran \textbf{Gudang} dapat mengklik \textbf{Terima Barang} untuk mencatat mutasi stok masuk (\textit{Stock In}).
+\end{enumerate}
+
+\section{Stock Movements (Mutasi Stok)}
+
+Sistem mencatat setiap aliran pergerakan barang, baik penambahan stok dari Pembelian maupun pengurangan stok dari Pengiriman.
+
+\subsection{Manajemen Stok Presisi (Atomic Lock)}
+\textbf{Perhatian Keamanan}: Sistem ini telah dilengkapi \textit{Database Atomic Lock} (\texttt{lockForUpdate}).
+Jika ada dua kasir atau dua staf gudang yang memproses pengiriman produk secara bersamaan dalam milidetik yang sama, sistem tidak akan mengalami cacat logika. Sistem akan me-\textit{lock} tabel stok, menyelesaikan transaksi pertama, lalu menghitung saldo terbaru untuk transaksi kedua.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{placeholder_stock_movement.png}
+    \caption{Daftar Riwayat Pergerakan Stok (In/Out)}
+    \label{figure:stock_movement}
+\end{figure}

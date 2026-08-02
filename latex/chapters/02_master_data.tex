@@ -1,0 +1,56 @@
+\chapter{Modul Master Data}
+
+Modul Master Data merupakan fondasi sistem. Seluruh transaksi penjualan, pembelian, dan pergudangan bergantung pada integritas data yang dimasukkan ke dalam modul ini.
+
+\section{Manajemen Produk (\textit{Product})}
+
+Modul \textit{Product} menyimpan daftar inventaris, katalog produk untuk \textit{website} publik, dan pengaturan harga.
+
+\subsection{Alur Kerja Pembuatan Produk Baru}
+\begin{enumerate}
+    \item Masuk ke menu navigasi \textbf{Master Data} $>$ \textbf{Products}.
+    \item Klik tombol \textbf{New Product} di sudut kanan atas halaman.
+    \item Isi formulir informasi dasar produk:
+    \begin{itemize}
+        \item \textbf{Nama Produk}: Tulis nama jelas (contoh: "Sepeda Lipat BMX").
+        \item \textbf{SKU}: Isi dengan kode unik barang.
+        \item \textbf{Harga Beli}: Modal barang (hanya bisa dilihat oleh \textit{Owner}/\textit{Super Admin}).
+        \item \textbf{Margin Penjualan (\%)}: Sistem otomatis akan menghitung \textbf{Harga Jual} berdasarkan persentase margin ini.
+    \end{itemize}
+    \item Unggah foto produk pada \textit{field} \textbf{Foto Utama} dan \textbf{Galeri Foto}.
+    \item Atur visibilitas produk dengan menghidupkan \textit{toggle} \textbf{Tampilkan di Website}.
+    \item Klik tombol \textbf{Create} untuk menyimpan data.
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{placeholder_form_produk.png}
+    \caption{Formulir Penambahan Produk Baru}
+    \label{figure:form_produk}
+\end{figure}
+
+\section{Manajemen Customer \& Supplier}
+
+Sistem membedakan profil rekanan bisnis melalui menu \textbf{Customers} dan \textbf{Suppliers}.
+
+\subsection{Pengelolaan Data Customer}
+\begin{enumerate}
+    \item Klik menu \textbf{Customers}.
+    \item Klik \textbf{New Customer}.
+    \item Isi data wajib meliputi \textbf{Nama Lengkap}, \textbf{Nomor WhatsApp}, \textbf{Email}, dan \textbf{Alamat Pengiriman}.
+    \item Status \textbf{Is Active} harus disetel hidup agar nama pelanggan muncul di menu pembuatan \textit{Quotation}.
+    \item Klik \textbf{Create}.
+\end{enumerate}
+
+\section{Warehouse (Gudang)}
+
+Gudang menyimpan informasi lokasi fisik tempat penyimpanan stok. Manajemen yang tidak memiliki \textit{Role} "Gudang" dapat melihat tetapi terbatas dalam mengeksekusi mutasi.
+
+\subsection{Skenario Dunia Nyata: Penambahan Cabang Gudang}
+Perusahaan membuka cabang baru di Surabaya. \textit{Super Admin} membuat profil Gudang:
+\begin{enumerate}
+    \item Buka menu \textbf{Warehouses}.
+    \item Klik \textbf{New Warehouse}.
+    \item Isi \textbf{Nama Gudang} dengan "Gudang Cabang Surabaya" dan \textbf{Alamat Lengkap}.
+    \item Klik \textbf{Create}. Setelah itu, opsi Gudang Surabaya akan muncul saat staf membuat dokumen \textit{Delivery Order} (Surat Jalan).
+\end{enumerate}

@@ -1,0 +1,41 @@
+\babel@toc {indonesian}{}\relax 
+\contentsline {chapter}{Daftar Isi}{i}{chapter*.1}%
+\contentsline {chapter}{Daftar Gambar}{ii}{chapter*.2}%
+\contentsline {chapter}{Daftar Tabel}{iii}{chapter*.3}%
+\contentsline {chapter}{\numberline {1}Pendahuluan \& Matriks Peran}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Konsep Dasar Sistem}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Matriks Peran (Role Matrix)}{1}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Struktur Antarmuka Pengguna (UI)}{1}{section.1.3}%
+\contentsline {chapter}{\numberline {2}Modul Master Data}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Manajemen Produk (\textit {Product})}{3}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Alur Kerja Pembuatan Produk Baru}{3}{subsection.2.1.1}%
+\contentsline {section}{\numberline {2.2}Manajemen Customer \& Supplier}{4}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Pengelolaan Data Customer}{4}{subsection.2.2.1}%
+\contentsline {section}{\numberline {2.3}Warehouse (Gudang)}{5}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Skenario Dunia Nyata: Penambahan Cabang Gudang}{5}{subsection.2.3.1}%
+\contentsline {chapter}{\numberline {3}Alur Kerja Penjualan (Sales Workflow)}{6}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Inquiry (Pemesanan/Pertanyaan)}{6}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Langkah Menindaklanjuti Inquiry}{6}{subsection.3.1.1}%
+\contentsline {section}{\numberline {3.2}Quotation (Penawaran Harga)}{6}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Membuat Quotation Baru}{6}{subsection.3.2.1}%
+\contentsline {section}{\numberline {3.3}Sales Order \& Invoice}{6}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Skenario Persetujuan Owner \& Tagihan}{6}{subsection.3.3.1}%
+\contentsline {section}{\numberline {3.4}Pembayaran Invoice (Kasir)}{7}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Delivery Order (Surat Jalan)}{8}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}Eksekusi Surat Jalan}{8}{subsection.3.5.1}%
+\contentsline {chapter}{\numberline {4}Gudang \& Pengadaan (Inventory \& Procurement)}{9}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Procurement \& Purchase Order (Pengadaan)}{9}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Skenario Pembelian Barang dari Supplier}{9}{subsection.4.1.1}%
+\contentsline {section}{\numberline {4.2}Stock Movements (Mutasi Stok)}{9}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Manajemen Stok Presisi (Atomic Lock)}{9}{subsection.4.2.1}%
+\contentsline {chapter}{\numberline {5}Modul Finansial \& Korporasi}{11}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Pengeluaran (Expense)}{11}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Manajemen Sekutu \& Penarikan Prive}{11}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Alur Permohonan Prive (Bebas Defisit)}{11}{subsection.5.2.1}%
+\contentsline {section}{\numberline {5.3}Profit Distribution (Tutup Buku)}{11}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Distribusi Dividen Otomatis}{11}{subsection.5.3.1}%
+\contentsline {chapter}{\numberline {6}Troubleshooting \& Error Handling}{13}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Pesan Peringatan: Optimistic Locking}{13}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Error 404 pada File Lampiran (Private Files)}{13}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Validasi Input Gagal (Server Exception 500)}{13}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Catatan API Publik \& Kredensial SPA}{14}{section.6.4}%
